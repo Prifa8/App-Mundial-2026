@@ -127,7 +127,7 @@ export default function App() {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-sm font-display font-black text-white tracking-widest uppercase">
-                  Futbol AI Predictor <span className="text-emerald-500 font-bold">v4.5</span>
+                  futbol-prifa-predictor <span className="text-emerald-500 font-bold">v4.5</span>
                 </h1>
                 <span className="hidden sm:inline bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-[9px] font-bold px-1.5 py-0.5 rounded">
                   v4.5 HYBRID
@@ -386,7 +386,7 @@ export default function App() {
       <footer className="border-t border-white/5 bg-[#0d0d0f] py-6 mt-auto text-center text-xs font-mono text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
           <div className="text-[10.5px]">
-            &copy; {new Date().getFullYear()} Futbol AI Predictor SaaS. Todos los modelos estadísticos operan de forma autónoma.
+            &copy; {new Date().getFullYear()} futbol-prifa-predictor SaaS. Todos los modelos estadísticos operan de forma autónoma.
           </div>
           
           <div className="flex items-center gap-1 text-[10px] text-slate-500">

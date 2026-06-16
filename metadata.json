@@ -1,5 +1,5 @@
 {
-  "name": "Futbol AI Predictor",
+  "name": "futbol-prifa-predictor",
   "description": "Professional football probabilistic analysis and predictions using advanced hybrid models like Dixon-Coles, Elo, Poisson, and Monte Carlo.",
   "requestFramePermissions": [],
   "majorCapabilities": [

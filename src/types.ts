@@ -1,5 +1,5 @@
 /**
- * Futbol AI Predictor - Tipo de Datos
+ * futbol-prifa-predictor - Tipo de Datos
  */
 
 export interface Team {
