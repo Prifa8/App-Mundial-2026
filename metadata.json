@@ -1,0 +1,8 @@
+{
+  "name": "Futbol AI Predictor",
+  "description": "Professional football probabilistic analysis and predictions using advanced hybrid models like Dixon-Coles, Elo, Poisson, and Monte Carlo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
