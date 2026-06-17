@@ -429,6 +429,23 @@ export const TEAMS: Team[] = [
     defPower: 0.82,
     momentum: 1.04
   },
+  {
+    id: 'aut',
+    name: 'Austria',
+    code: 'AUT',
+    type: 'national',
+    continent: 'UEFA',
+    elo: 1820,
+    fifaRanking: 22,
+    marketValueM: 260,
+    avgAge: 26.8,
+    worldCupExp: 5.5,
+    recentForm: ['W', 'D', 'W', 'L', 'W'],
+    spi: 76.5,
+    offPower: 1.52,
+    defPower: 0.82,
+    momentum: 1.03
+  },
 
   // --- CONCACAF NATIONAL TEAMS ---
   {
@@ -603,6 +620,40 @@ export const TEAMS: Team[] = [
     defPower: 0.86,
     momentum: 1.02
   },
+  {
+    id: 'gha',
+    name: 'Ghana',
+    code: 'GHA',
+    type: 'national',
+    continent: 'CAF',
+    elo: 1580,
+    fifaRanking: 64,
+    marketValueM: 220,
+    avgAge: 25.1,
+    worldCupExp: 4.8,
+    recentForm: ['D', 'W', 'L', 'D', 'W'],
+    spi: 64.2,
+    offPower: 1.18,
+    defPower: 1.05,
+    momentum: 0.96
+  },
+  {
+    id: 'cod',
+    name: 'Congo DR',
+    code: 'COD',
+    type: 'national',
+    continent: 'CAF',
+    elo: 1560,
+    fifaRanking: 61,
+    marketValueM: 110,
+    avgAge: 26.5,
+    worldCupExp: 2.5,
+    recentForm: ['W', 'D', 'L', 'W', 'D'],
+    spi: 62.5,
+    offPower: 1.12,
+    defPower: 1.08,
+    momentum: 0.98
+  },
 
   // --- AFC (ASIA) NATIONAL TEAMS ---
   {
@@ -706,6 +757,40 @@ export const TEAMS: Team[] = [
     offPower: 1.55,
     defPower: 0.77,
     momentum: 1.08
+  },
+  {
+    id: 'jor',
+    name: 'Jordania',
+    code: 'JOR',
+    type: 'national',
+    continent: 'AFC',
+    elo: 1595,
+    fifaRanking: 68,
+    marketValueM: 18,
+    avgAge: 27.5,
+    worldCupExp: 2.0,
+    recentForm: ['W', 'W', 'D', 'W', 'L'],
+    spi: 59.8,
+    offPower: 1.08,
+    defPower: 1.12,
+    momentum: 1.02
+  },
+  {
+    id: 'uzb',
+    name: 'Uzbekistán',
+    code: 'UZB',
+    type: 'national',
+    continent: 'AFC',
+    elo: 1610,
+    fifaRanking: 58,
+    marketValueM: 35,
+    avgAge: 25.8,
+    worldCupExp: 1.5,
+    recentForm: ['W', 'D', 'W', 'D', 'W'],
+    spi: 61.2,
+    offPower: 1.10,
+    defPower: 1.04,
+    momentum: 1.04
   },
 
   // --- OFC (OCEANIA) NATIONAL TEAMS ---
@@ -1240,6 +1325,11 @@ export function getFlagEmoji(team: Team): string {
     case 'CUW': return '🇨🇼';
     case 'TUN': return '🇹🇳';
     case 'CIV': return '🇨🇮';
+    case 'AUT': return '🇦🇹';
+    case 'GHA': return '🇬🇭';
+    case 'JOR': return '🇯🇴';
+    case 'COD': return '🇨🇩';
+    case 'UZB': return '🇺🇿';
     default: return '🏴';
   }
 }
@@ -1261,7 +1351,43 @@ export function getColorClass(team: Team): { bg: string, text: string, accent: s
     nor: { bg: 'bg-red-500/10 border border-red-500/25', text: 'text-red-300', accent: '#f87171' },
     irq: { bg: 'bg-emerald-700/10 border border-emerald-500/25', text: 'text-emerald-300', accent: '#10b981' },
     swe: { bg: 'bg-yellow-500/10 border border-yellow-500/25', text: 'text-yellow-300', accent: '#eab308' },
-    per: { bg: 'bg-red-500/15 border border-red-500/20', text: 'text-red-400', accent: '#ef4444' }
+    per: { bg: 'bg-red-500/15 border border-red-500/20', text: 'text-red-400', accent: '#ef4444' },
+    alg: { bg: 'bg-emerald-600/20', text: 'text-emerald-400', accent: '#10b981' },
+    ksa: { bg: 'bg-green-700/20', text: 'text-green-300', accent: '#15803d' },
+    aus: { bg: 'bg-amber-400/20', text: 'text-yellow-400 border border-green-500/25', accent: '#fbbf24' },
+    aut: { bg: 'bg-rose-600/20', text: 'text-rose-300', accent: '#e11d48' },
+    bel: { bg: 'bg-red-600/20 border border-yellow-500/10', text: 'text-red-300', accent: '#dc2626' },
+    bih: { bg: 'bg-blue-600/20 border border-yellow-500/20', text: 'text-blue-300', accent: '#2563eb' },
+    cpv: { bg: 'bg-blue-500/20 border border-yellow-500/10', text: 'text-blue-300', accent: '#3b82f6' },
+    can: { bg: 'bg-red-500/20', text: 'text-red-300', accent: '#ef4444' },
+    kor: { bg: 'bg-red-600/20 border border-blue-500/10', text: 'text-red-400', accent: '#dc2626' },
+    civ: { bg: 'bg-orange-500/20 border border-emerald-500/10', text: 'text-orange-400', accent: '#f97316' },
+    cro: { bg: 'bg-red-500/10 border border-slate-500/20', text: 'text-slate-100', accent: '#ef4444' },
+    cuw: { bg: 'bg-sky-700/20 border border-yellow-500/15', text: 'text-sky-300', accent: '#0284c7' },
+    ecu: { bg: 'bg-yellow-500/15 border border-blue-500/20', text: 'text-yellow-300', accent: '#facc15' },
+    egy: { bg: 'bg-red-700/20', text: 'text-amber-200', accent: '#b91c1c' },
+    sco: { bg: 'bg-blue-900/20 border border-white/10', text: 'text-blue-300', accent: '#1e3a8a' },
+    usa: { bg: 'bg-blue-600/10 border border-red-500/15', text: 'text-slate-100', accent: '#3b82f6' },
+    gha: { bg: 'bg-yellow-500/10 border border-red-500/20', text: 'text-yellow-400', accent: '#facc15' },
+    hai: { bg: 'bg-blue-500/15 border border-red-500/20', text: 'text-blue-300', accent: '#3b82f6' },
+    irn: { bg: 'bg-emerald-500/10 border border-red-500/20', text: 'text-slate-100', accent: '#10b981' },
+    jpn: { bg: 'bg-blue-500/10 border border-white/10', text: 'text-blue-400', accent: '#3b82f6' },
+    jor: { bg: 'bg-red-600/10 border border-emerald-500/25', text: 'text-red-400', accent: '#dc2626' },
+    mar: { bg: 'bg-red-600/10 border border-emerald-500/25', text: 'text-red-400', accent: '#dc2626' },
+    mex: { bg: 'bg-emerald-600/15 border border-red-500/15', text: 'text-emerald-400', accent: '#059669' },
+    nzl: { bg: 'bg-stone-800/20 border border-white/15', text: 'text-stone-200', accent: '#78716c' },
+    ned: { bg: 'bg-orange-500/20', text: 'text-orange-400', accent: '#f97316' },
+    pan: { bg: 'bg-red-500/15 border border-blue-500/15', text: 'text-red-400', accent: '#ef4444' },
+    par: { bg: 'bg-red-500/10 border border-blue-500/15', text: 'text-red-400', accent: '#ef4444' },
+    qat: { bg: 'bg-rose-900/25 border border-rose-800/30', text: 'text-rose-200', accent: '#881337' },
+    cze: { bg: 'bg-red-500/10 border border-blue-500/15', text: 'text-slate-100', accent: '#ef4444' },
+    cod: { bg: 'bg-sky-600/15 border border-yellow-500/20', text: 'text-sky-300', accent: '#ea580c' },
+    sen: { bg: 'bg-emerald-600/10 border border-yellow-500/20', text: 'text-emerald-400', accent: '#10b981' },
+    rsa: { bg: 'bg-green-600/10 border border-yellow-500/20', text: 'text-yellow-400', accent: '#eab308' },
+    sui: { bg: 'bg-red-500/20 border border-white/10', text: 'text-red-300', accent: '#ef4444' },
+    tun: { bg: 'bg-red-500/15 border border-rose-500/15', text: 'text-rose-300', accent: '#ef4444' },
+    tur: { bg: 'bg-red-600/15', text: 'text-red-300', accent: '#ef4444' },
+    uzb: { bg: 'bg-blue-500/10 border border-emerald-500/20', text: 'text-blue-300', accent: '#3b82f6' }
   };
   
   return map[team.id] || { bg: 'bg-indigo-500/20', text: 'text-indigo-300', accent: '#818cf8' };
