@@ -246,7 +246,7 @@ export default function App() {
                 }`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Condicionado 17 Juegos (v4.5)
+                Condicionado 20 Juegos (v4.5)
               </button>
             </div>
           </div>
@@ -262,7 +262,7 @@ export default function App() {
               onClick={() => setShowRealResults(!showRealResults)}
               className="text-[10px] uppercase font-mono font-bold text-slate-400 hover:text-white flex items-center gap-1 bg-white/5 py-1 px-3 rounded-lg border border-white/10 transition-colors cursor-pointer"
             >
-              <span>{showRealResults ? "Ocultar" : "Auditar"} 17 Partidos Jugados</span>
+              <span>{showRealResults ? "Ocultar" : "Auditar"} 20 Partidos Jugados</span>
               <span>{showRealResults ? "▲" : "▼"}</span>
             </button>
           </div>
@@ -274,29 +274,50 @@ export default function App() {
                 const team1 = teams.find(t => t.id === match.team1Id) || TEAMS.find(t => t.id === match.team1Id)!;
                 const team2 = teams.find(t => t.id === match.team2Id) || TEAMS.find(t => t.id === match.team2Id)!;
                 return (
-                  <div key={i} className="bg-slate-950 p-3 rounded-xl border border-white/5 flex flex-col justify-between space-y-2">
+                  <div key={i} className="bg-slate-950 p-3.5 rounded-xl border border-white/5 flex flex-col justify-between space-y-3">
                     <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 uppercase">
                       <span>{match.group}</span>
                       <span>{match.date}</span>
                     </div>
-                    <div className="flex items-center justify-between font-sans">
-                      <div className="flex items-center gap-1.5 min-w-0">
-                        <span className="text-xl shrink-0">{getFlagEmoji(team1)}</span>
-                        <span className="text-xs font-bold text-white truncate">{team1.name}</span>
+                    
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between font-sans">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="text-xl shrink-0">{getFlagEmoji(team1)}</span>
+                          <span className="text-xs font-bold text-white truncate">{team1.name}</span>
+                        </div>
+                        <span className="text-sm font-black text-slate-200 font-mono pl-2">{match.score1}</span>
                       </div>
-                      <span className="text-sm font-black text-slate-200 font-mono pl-2">{match.score1}</span>
-                    </div>
-                    <div className="flex items-center justify-between font-sans">
-                      <div className="flex items-center gap-1.5 min-w-0">
-                        <span className="text-xl shrink-0">{getFlagEmoji(team2)}</span>
-                        <span className="text-xs font-bold text-white truncate">{team2.name}</span>
+                      <div className="flex items-center justify-between font-sans">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="text-xl shrink-0">{getFlagEmoji(team2)}</span>
+                          <span className="text-xs font-bold text-white truncate">{team2.name}</span>
+                        </div>
+                        <span className="text-sm font-black text-slate-200 font-mono pl-2">{match.score2}</span>
                       </div>
-                      <span className="text-sm font-black text-slate-200 font-mono pl-2">{match.score2}</span>
                     </div>
-                    <div className="text-[8.5px] font-mono text-slate-500 border-t border-white/5 pt-1.5 text-center flex items-center justify-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-600 shrink-0" />
-                      <span>Diferencia de ELO ajustada</span>
-                    </div>
+
+                    {/* Detailed game match stats info */}
+                    {match.xg1 !== undefined && (
+                      <div className="border-t border-white/5 pt-2 space-y-1 text-[10px] font-mono text-slate-400">
+                        <div className="flex justify-between">
+                          <span>xG:</span>
+                          <span className="text-emerald-400 font-bold">{match.xg1.toFixed(2)} - {match.xg2?.toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Posesión:</span>
+                          <span>{match.possession1}% - {match.possession2}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Tiros (arco):</span>
+                          <span>{match.shots1}({match.shotsOnTarget1}) - {match.shots2}({match.shotsOnTarget2})</span>
+                        </div>
+                        <div className="flex justify-between text-[9px] text-slate-500">
+                          <span>Corners: {match.corners1} - {match.corners2}</span>
+                          <span>Elo calibrado: {team1.elo} vs {team2.elo}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}

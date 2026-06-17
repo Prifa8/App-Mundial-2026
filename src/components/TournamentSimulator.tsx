@@ -85,7 +85,7 @@ export default function TournamentSimulator({ teams }: { teams: Team[] }) {
               scoreB = realMatch.score1;
             }
           } else {
-            // Compute expected goals
+            // Compute expected goals under true Monte Carlo sampling
             // Home field advantage is disabled since World Cup is neutral for neutral groups
             const out = PredictorEngine.predict({
               teamAId: teamA.id,
@@ -95,8 +95,8 @@ export default function TournamentSimulator({ teams }: { teams: Team[] }) {
               isKnockout: false
             }, teams);
 
-            scoreA = out.mostProbableScore.scoreA;
-            scoreB = out.mostProbableScore.scoreB;
+            scoreA = out.simulatedHistA[0] !== undefined ? out.simulatedHistA[0] : out.mostProbableScore.scoreA;
+            scoreB = out.simulatedHistB[0] !== undefined ? out.simulatedHistB[0] : out.mostProbableScore.scoreB;
           }
 
           // Record goals
