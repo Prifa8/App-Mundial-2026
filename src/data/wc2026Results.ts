@@ -94,14 +94,14 @@ export const WC_2026_REAL_RESULTS: RealMatch[] = [
   },
   {
     team1Id: 'civ', team2Id: 'ecu', score1: 1, score2: 0,
-    date: '14 de junio, 2026', status: 'FT', group: 'Grupo B',
+    date: '14 de junio, 2026', status: 'FT', group: 'Grupo I',
     xg1: 1.05, xg2: 0.95, possession1: 45, possession2: 55,
     shots1: 10, shots2: 11, shotsOnTarget1: 3, shotsOnTarget2: 2,
     corners1: 4, corners2: 4
   },
   {
     team1Id: 'swe', team2Id: 'tun', score1: 5, score2: 1,
-    date: '14 de junio, 2026', status: 'FT', group: 'Grupo B',
+    date: '14 de junio, 2026', status: 'FT', group: 'Grupo J',
     xg1: 3.15, xg2: 0.75, possession1: 60, possession2: 40,
     shots1: 19, shots2: 7, shotsOnTarget1: 9, shotsOnTarget2: 2,
     corners1: 6, corners2: 3
@@ -122,7 +122,7 @@ export const WC_2026_REAL_RESULTS: RealMatch[] = [
   },
   {
     team1Id: 'esp', team2Id: 'cpv', score1: 0, score2: 0,
-    date: '15 de junio, 2026', status: 'FT', group: 'Grupo B',
+    date: '15 de junio, 2026', status: 'FT', group: 'Grupo I',
     xg1: 1.55, xg2: 0.22, possession1: 75, possession2: 25,
     shots1: 16, shots2: 2, shotsOnTarget1: 4, shotsOnTarget2: 0,
     corners1: 9, corners2: 1
@@ -136,7 +136,7 @@ export const WC_2026_REAL_RESULTS: RealMatch[] = [
   },
   {
     team1Id: 'fra', team2Id: 'sen', score1: 3, score2: 1,
-    date: '16 de junio, 2026', status: 'FT', group: 'Grupo C',
+    date: '16 de junio, 2026', status: 'FT', group: 'Grupo J',
     xg1: 2.25, xg2: 1.05, possession1: 58, possession2: 42,
     shots1: 17, shots2: 10, shotsOnTarget1: 6, shotsOnTarget2: 3,
     corners1: 6, corners2: 4
@@ -150,7 +150,7 @@ export const WC_2026_REAL_RESULTS: RealMatch[] = [
   },
   {
     team1Id: 'arg', team2Id: 'alg', score1: 3, score2: 0,
-    date: '17 de junio, 2026', status: 'FT', group: 'Grupo C',
+    date: '17 de junio, 2026', status: 'FT', group: 'Grupo K',
     xg1: 2.80, xg2: 0.40, possession1: 64, possession2: 36,
     shots1: 18, shots2: 6, shotsOnTarget1: 8, shotsOnTarget2: 2,
     corners1: 8, corners2: 3
@@ -161,6 +161,34 @@ export const WC_2026_REAL_RESULTS: RealMatch[] = [
     xg1: 1.95, xg2: 0.75, possession1: 58, possession2: 42,
     shots1: 14, shots2: 7, shotsOnTarget1: 6, shotsOnTarget2: 2,
     corners1: 5, corners2: 3
+  },
+  {
+    team1Id: 'cro', team2Id: 'ven', score1: 2, score2: 1,
+    date: '15 de junio, 2026', status: 'FT', group: 'Grupo G',
+    xg1: 1.65, xg2: 1.05, possession1: 54, possession2: 46,
+    shots1: 14, shots2: 9, shotsOnTarget1: 5, shotsOnTarget2: 3,
+    corners1: 5, corners2: 3
+  },
+  {
+    team1Id: 'col', team2Id: 'per', score1: 2, score2: 0,
+    date: '17 de junio, 2026', status: 'FT', group: 'Grupo K',
+    xg1: 1.85, xg2: 0.65, possession1: 57, possession2: 43,
+    shots1: 16, shots2: 7, shotsOnTarget1: 6, shotsOnTarget2: 2,
+    corners1: 6, corners2: 2
+  },
+  {
+    team1Id: 'eng', team2Id: 'por', score1: 1, score2: 1,
+    date: '16 de junio, 2026', status: 'FT', group: 'Grupo L',
+    xg1: 1.45, xg2: 1.35, possession1: 52, possession2: 48,
+    shots1: 13, shots2: 12, shotsOnTarget1: 4, shotsOnTarget2: 4,
+    corners1: 5, corners2: 5
+  },
+  {
+    team1Id: 'ita', team2Id: 'den', score1: 2, score2: 1,
+    date: '17 de junio, 2026', status: 'FT', group: 'Grupo L',
+    xg1: 1.55, xg2: 0.95, possession1: 53, possession2: 47,
+    shots1: 12, shots2: 9, shotsOnTarget1: 5, shotsOnTarget2: 3,
+    corners1: 4, corners2: 4
   }
 ];
 
@@ -170,7 +198,7 @@ export function computeCalibratedElos(baseTeams: Team[]): Team[] {
 
   const hosts = new Set(['usa', 'mex', 'can']);
   const HOME_ADV = 75;
-  const K = 55; // World Cup K-Factor in backtest is 55.
+  const BASE_K = 55; // World Cup baseline K-Factor is 55.
 
   const gMult = (gd: number) => {
     const d = Math.abs(gd);
@@ -186,6 +214,16 @@ export function computeCalibratedElos(baseTeams: Team[]): Team[] {
     const t2 = teamsMap.get(match.team2Id);
     if (!t1 || !t2) continue;
 
+    // 1. CALCULAR PONDERACIÓN DE RECENCIA (Ponderar más los partidos más recientes)
+    // El mundial empieza el 11 de junio. Más cercano al 17 de junio = mayor peso
+    const matchDay = parseInt(match.date.match(/\d+/)?.[0] || '11', 10);
+    const dayDistance = Math.max(0, matchDay - 11);
+    // Peso de recencia escala linealmente desde 1.0 (11 junio) hasta 1.75 (17 junio)
+    const recencyWeight = 1.0 + dayDistance * 0.125;
+
+    // Aplicar peso de recencia al factor K para adaptabilidad instantánea ELO
+    const K = BASE_K * recencyWeight;
+
     const hb = (hosts.has(t1.id) ? HOME_ADV : 0) - (hosts.has(t2.id) ? HOME_ADV : 0);
     const exp1 = expectedScore(t1.elo, t2.elo, hb);
     const score1 = match.score1 > match.score2 ? 1 : match.score1 < match.score2 ? 0 : 0.5;
@@ -197,49 +235,79 @@ export function computeCalibratedElos(baseTeams: Team[]): Team[] {
     t1.elo = Math.round(t1.elo + delta);
     t2.elo = Math.round(t2.elo - delta);
 
-    // Update form indicator and momentum
+    // Ajuste dinámico de Momentum de racha reciente amortiguado por la recencia
+    const momentumDelta = 0.05 * recencyWeight;
     if (score1 === 1) {
       t1.recentForm = ['W', ...t1.recentForm.slice(0, 4)];
       t2.recentForm = ['L', ...t2.recentForm.slice(0, 4)];
-      t1.momentum = Math.min(1.20, t1.momentum + 0.05);
-      t2.momentum = Math.max(0.80, t2.momentum - 0.04);
+      t1.momentum = Math.min(1.25, t1.momentum + momentumDelta);
+      t2.momentum = Math.max(0.75, t2.momentum - momentumDelta * 0.8);
     } else if (score1 === 0) {
       t1.recentForm = ['L', ...t1.recentForm.slice(0, 4)];
       t2.recentForm = ['W', ...t2.recentForm.slice(0, 4)];
-      t1.momentum = Math.max(0.80, t1.momentum - 0.04);
-      t2.momentum = Math.min(1.20, t2.momentum + 0.05);
+      t1.momentum = Math.max(0.75, t1.momentum - momentumDelta * 0.8);
+      t2.momentum = Math.min(1.25, t2.momentum + momentumDelta);
     } else {
       t1.recentForm = ['D', ...t1.recentForm.slice(0, 4)];
       t2.recentForm = ['D', ...t2.recentForm.slice(0, 4)];
-      t1.momentum = t1.momentum > 1 ? Math.max(1.0, t1.momentum - 0.01) : Math.min(1.0, t1.momentum + 0.01);
-      t2.momentum = t2.momentum > 1 ? Math.max(1.0, t2.momentum - 0.01) : Math.min(1.0, t2.momentum + 0.01);
+      t1.momentum = t1.momentum > 1 ? Math.max(1.0, t1.momentum - 0.02) : Math.min(1.0, t1.momentum + 0.02);
+      t2.momentum = t2.momentum > 1 ? Math.max(1.0, t2.momentum - 0.02) : Math.min(1.0, t2.momentum + 0.02);
     }
 
-    // Dynamic Bayesian-ready calibration of offense/defense attributes using real match statistics
+    // 2. EXTRAER MICRO-ESTADÍSTICAS AVANZADAS PARA AJUSTE ULTRA-EXACTO
     if (match.xg1 !== undefined && match.xg2 !== undefined) {
+      // expected goals de base
       const predXG1 = Math.max(0.3, t1.offPower * t2.defPower * 1.35);
       const predXG2 = Math.max(0.3, t2.offPower * t1.defPower * 1.35);
 
-      const offErr1 = match.xg1 - predXG1;
-      const offErr2 = match.xg2 - predXG2;
-      
-      const defErr1 = match.score2 - predXG2;
-      const defErr2 = match.score1 - predXG1;
+      const xgErr1 = match.xg1 - predXG1;
+      const xgErr2 = match.xg2 - predXG2;
 
-      // Adjust offPower (higher is better, clamp range [0.65, 3.20])
-      t1.offPower = parseFloat(Math.max(0.65, Math.min(3.20, t1.offPower + offErr1 * 0.04)).toFixed(3));
-      t2.offPower = parseFloat(Math.max(0.65, Math.min(3.20, t2.offPower + offErr2 * 0.04)).toFixed(3));
+      // Tiros al arco (Shots on Target) vs esperados
+      const sOnTarget1 = match.shotsOnTarget1 || 4;
+      const sOnTarget2 = match.shotsOnTarget2 || 4;
+      const predSOT1 = Math.max(1.0, t1.offPower * t2.defPower * 4.2);
+      const predSOT2 = Math.max(1.0, t2.offPower * t1.defPower * 4.2);
+      const sotErr1 = sOnTarget1 - predSOT1;
+      const sotErr2 = sOnTarget2 - predSOT2;
 
-      // Adjust defPower (lower is better, clamp range [0.30, 1.60])
-      t1.defPower = parseFloat(Math.max(0.30, Math.min(1.60, t1.defPower + defErr2 * 0.035)).toFixed(3));
-      t2.defPower = parseFloat(Math.max(0.30, Math.min(1.60, t2.defPower + defErr1 * 0.035)).toFixed(3));
-      
-      // Calibrate Soccer Power Index (SPI) based on possession, shots and xG differentials
-      const spiAdj1 = (match.possession1 - 50) * 0.05 + (match.shots1 - match.shots2) * 0.05 + offErr1 * 0.25;
-      const spiAdj2 = (match.possession2 - 50) * 0.05 + (match.shots2 - match.shots1) * 0.05 + offErr2 * 0.25;
-      
-      t1.spi = parseFloat(Math.max(45, Math.min(98.5, t1.spi + spiAdj1)).toFixed(1));
-      t2.spi = parseFloat(Math.max(45, Math.min(98.5, t2.spi + spiAdj2)).toFixed(1));
+      // Atajadas del Portero (Goalkeeper Saves)
+      const saves1 = Math.max(0, sOnTarget2 - match.score2);
+      const saves2 = Math.max(0, sOnTarget1 - match.score1);
+      const savesAdv1 = saves1 - predSOT2 * 0.25; // atajadas superiores a la expectativa
+      const savesAdv2 = saves2 - predSOT1 * 0.25;
+
+      // Tasa de acierto / eficiencia del tiro
+      const accuracy1 = sOnTarget1 / (match.shots1 || 10);
+      const accuracy2 = sOnTarget2 / (match.shots2 || 10);
+      const accDiff = accuracy1 - accuracy2;
+
+      // Tasa de presión de tiros de esquina (Corners)
+      const corners1 = match.corners1 || 4;
+      const corners2 = match.corners2 || 4;
+      const cornersDiff = corners1 - corners2;
+
+      // Modificadores de aprendizaje híbrido con decaimiento de recencia
+      const lrOff = 0.035 * recencyWeight;
+      const lrDef = 0.03 * recencyWeight;
+
+      // Calibrar ofensiva con xG, tiros al arco, precisión y córners
+      t1.offPower = parseFloat(Math.max(0.60, Math.min(3.40, t1.offPower + (xgErr1 * 0.7 + sotErr1 * 0.15 + accDiff * 0.15) * lrOff)).toFixed(3));
+      t2.offPower = parseFloat(Math.max(0.60, Math.min(3.40, t2.offPower + (xgErr2 * 0.7 + sotErr2 * 0.15 - accDiff * 0.15) * lrOff)).toFixed(3));
+
+      // Calibrar defensiva con goles encajados, xG concedido y atajadas sobresalientes
+      // Recordar: defPower más bajo es mejor
+      const scoreErr1 = match.score2 - predXG2;
+      const scoreErr2 = match.score1 - predXG1;
+      t1.defPower = parseFloat(Math.max(0.25, Math.min(1.75, t1.defPower + (scoreErr1 * 0.6 + xgErr2 * 0.2 - savesAdv1 * 0.1) * lrDef)).toFixed(3));
+      t2.defPower = parseFloat(Math.max(0.25, Math.min(1.75, t2.defPower + (scoreErr2 * 0.6 + xgErr1 * 0.2 - savesAdv2 * 0.1) * lrDef)).toFixed(3));
+
+      // Calibrar precisión en el Soccer Power Index (SPI) basado en posesión dominante, tiros y córners
+      const spiAdj1 = (match.possession1 - 50) * 0.08 + (match.shots1 - match.shots2) * 0.07 + xgErr1 * 0.3 + cornersDiff * 0.1;
+      const spiAdj2 = (match.possession2 - 50) * 0.08 + (match.shots2 - match.shots1) * 0.07 + xgErr2 * 0.3 - cornersDiff * 0.1;
+
+      t1.spi = parseFloat(Math.max(40.0, Math.min(99.0, t1.spi + spiAdj1 * recencyWeight * 0.6)).toFixed(1));
+      t2.spi = parseFloat(Math.max(40.0, Math.min(99.0, t2.spi + spiAdj2 * recencyWeight * 0.6)).toFixed(1));
     }
   }
 

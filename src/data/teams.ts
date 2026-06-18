@@ -1226,39 +1226,55 @@ export const TEAMS: Team[] = [
   }
 ];
 
-// Predefined groups for the World Cup 2026 Simulation (8 key groups matching top profiles)
+// Predefined groups for the World Cup 2026 Simulation (12 balanced groups A-L representing 48 teams)
 export const WC_2026_SIMULATION_GROUPS = [
   {
     name: 'Grupo A',
-    teams: ['arg', 'can', 'sui', 'aus']
+    teams: ['mex', 'rsa', 'kor', 'cze']
   },
   {
     name: 'Grupo B',
-    teams: ['esp', 'ecu', 'tur', 'nga']
+    teams: ['can', 'bih', 'sui', 'qat']
   },
   {
     name: 'Grupo C',
-    teams: ['fra', 'can', 'mar', 'ksa']
+    teams: ['bra', 'mar', 'hai', 'sco']
   },
   {
     name: 'Grupo D',
-    teams: ['bra', 'den', 'egy', 'nzl']
+    teams: ['usa', 'par', 'aus', 'tur']
   },
   {
     name: 'Grupo E',
-    teams: ['col', 'ger', 'par', 'kor']
+    teams: ['ger', 'cuw', 'nor', 'irq']
   },
   {
     name: 'Grupo F',
-    teams: ['uru', 'por', 'ita', 'can'] // Group of Death simulation
+    teams: ['uru', 'ksa', 'aut', 'jor']
   },
   {
     name: 'Grupo G',
-    teams: ['eng', 'cro', 'can', 'ven']
+    teams: ['irn', 'nzl', 'cro', 'ven']
   },
   {
     name: 'Grupo H',
-    teams: ['ned', 'bel', 'sen', 'usa']
+    teams: ['ned', 'jpn', 'bel', 'egy']
+  },
+  {
+    name: 'Grupo I',
+    teams: ['esp', 'cpv', 'ecu', 'civ']
+  },
+  {
+    name: 'Grupo J',
+    teams: ['fra', 'sen', 'swe', 'tun']
+  },
+  {
+    name: 'Grupo K',
+    teams: ['arg', 'alg', 'col', 'per']
+  },
+  {
+    name: 'Grupo L',
+    teams: ['eng', 'por', 'ita', 'den']
   }
 ];
 

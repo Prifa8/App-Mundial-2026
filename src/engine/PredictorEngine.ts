@@ -78,6 +78,25 @@ function factorial(n: number): number {
 export class PredictorEngine {
 
   /**
+   * Pondera los partidos de forma reciente de la racha (el primero es el más reciente con peso superior)
+   */
+  private static getDynamicFormWeight(team: Team): number {
+    if (!team.recentForm || team.recentForm.length === 0) return team.momentum;
+    let weightedSum = 0;
+    let totalWeight = 0;
+    // Ponderar: El más reciente (índice 0) obtiene peso de 5, el más antiguo (índice 4) obtiene peso de 1
+    for (let i = 0; i < team.recentForm.length; i++) {
+      const weight = 5 - i;
+      const val = team.recentForm[i] === 'W' ? 1.25 : team.recentForm[i] === 'D' ? 1.00 : 0.75;
+      weightedSum += val * weight;
+      totalWeight += weight;
+    }
+    const formFactor = weightedSum / totalWeight;
+    // Combinación convexa entre momentum base (40%) y la racha ponderada por recencia (60%)
+    return team.momentum * 0.4 + formFactor * 0.6;
+  }
+
+  /**
    * Ejecuta el análisis predictivo completo
    */
   public static predict(input: MatchPredictionInput, teams: Team[]): MatchPredictionResult {
@@ -115,12 +134,32 @@ export class PredictorEngine {
     const diffB = (teamB.elo - homeBonusA / 2) - teamA.elo;
     const rawMu = 1.35 + diffB / 400;
 
-    // Fuerza ofensiva y defensiva específica de cada selección
-    const momentumA = teamA.momentum;
-    const momentumB = teamB.momentum;
+    // Fuerza ofensiva y defensiva específica de cada selección con Ponderación de Recencia en Racha
+    const formWeightA = this.getDynamicFormWeight(teamA);
+    const formWeightB = this.getDynamicFormWeight(teamB);
 
-    let dynamicLambda = rawLambda * (teamA.offPower * teamB.defPower) * momentumA;
-    let dynamicMu = rawMu * (teamB.offPower * teamA.defPower) * momentumB;
+    // Ajustadores matemáticos sofisticados basados en estadísticas de Plantilla:
+    // A) Edad Promedio (Curva de rendimiento físico: óptimo entre 25.0 y 27.5 años)
+    const getAgeModifier = (age: number) => {
+      if (age >= 25.0 && age <= 27.5) return 1.03; // sweet-spot
+      if (age < 23.5) return 0.97; // juventud/inexperiencia táctica
+      if (age > 29.0) return 0.96; // envejecimiento/fatiga física
+      return 1.0;
+    };
+    const ageModA = getAgeModifier(teamA.avgAge);
+    const ageModB = getAgeModifier(teamB.avgAge);
+
+    // B) Valor de Mercado Logarítmico (Profundidad del plantel, calidad de recambios, valor de estrellas)
+    const limitMktRatio = Math.max(0.1, Math.min(10, teamA.marketValueM / (teamB.marketValueM || 1)));
+    const mktModifier = 1.0 + Math.log10(limitMktRatio) * 0.085;
+
+    // C) Experiencia en Copas del Mundo (Templanza bajo presión emocional)
+    const expModA = 1.0 + teamA.worldCupExp * 0.008;
+    const expModB = 1.0 + teamB.worldCupExp * 0.008;
+
+    // Incorporar todos los filtros e influencias en Expected Goals (xG) de manera simétrica
+    let dynamicLambda = rawLambda * (teamA.offPower * teamB.defPower) * formWeightA * (ageModA / ageModB) * (expModA / expModB) * Math.max(0.9, mktModifier);
+    let dynamicMu = rawMu * (teamB.offPower * teamA.defPower) * formWeightB * (ageModB / ageModA) * (expModB / expModA) / Math.max(0.9, mktModifier);
 
     // Límites de seguridad idénticos a elo.mjs cociente de cotas
     dynamicLambda = Math.max(0.3, Math.min(3.5, dynamicLambda));
@@ -131,7 +170,7 @@ export class PredictorEngine {
     // Características clave: eloDifference, spiDifference, marketValueRatio, ageDifference, momentumDifference, experienceDifference.
     const marketValueRatio = teamA.marketValueM / (teamB.marketValueM || 1);
     const ageDiff = teamA.avgAge - teamB.avgAge;
-    const formDiff = (momentumA - momentumB) * 10;
+    const formDiff = (formWeightA - formWeightB) * 10;
     const expDiff = teamA.worldCupExp - teamB.worldCupExp;
 
     // Probabilidades individuales simuladas por los submodelos de Machine Learning entrenados históricamente:
