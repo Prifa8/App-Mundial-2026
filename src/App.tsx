@@ -11,14 +11,12 @@ import EloLeaderboard from './components/EloLeaderboard';
 import TournamentSimulator from './components/TournamentSimulator';
 import ModelValidation from './components/ModelValidation';
 import ApiPlayground from './components/ApiPlayground';
-import AiSimulationCenter from './components/AiSimulationCenter';
 
 import { 
   Trophy, 
   TrendingUp, 
   Coins, 
   Activity, 
-  Terminal, 
   Dribbble, 
   Code, 
   Cpu,
@@ -29,13 +27,9 @@ import {
 export default function App() {
   const [activeSection, setActiveSection] = useState<'predict' | 'elo' | 'cup' | 'validate' | 'api'>('predict');
   const [useLiveCalibratedElos, setUseLiveCalibratedElos] = useState<boolean>(true);
-  const [realResults, setRealResults] = useState<RealMatch[]>([]);
+  const [realResults, setRealResults] = useState<RealMatch[]>(WC_2026_REAL_RESULTS);
   const [teams, setTeams] = useState<Team[]>(TEAMS);
   const [showRealResults, setShowRealResults] = useState<boolean>(false);
-  const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'success' | 'error'>('idle');
-  const [syncLogs, setSyncLogs] = useState<string[]>([]);
-  const [showSyncPanel, setShowSyncPanel] = useState<boolean>(false);
-  const [canSyncMore, setCanSyncMore] = useState<boolean>(true);
 
   // Selected Team States
   const [teamAId, setTeamAId] = useState('arg'); // Argentina
@@ -47,7 +41,7 @@ export default function App() {
   const [predictionResult, setPredictionResult] = useState<MatchPredictionResult | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
-  // Load real match results from our new server API on mount
+  // Load real match results on mount (fallback to local database integrated)
   useEffect(() => {
     fetchResults();
   }, []);
@@ -71,84 +65,12 @@ export default function App() {
   const fetchResults = async () => {
     try {
       const data = await safeJsonFetch('/api/wc-results');
-      if (data.success) {
+      if (data && data.success) {
         setRealResults(data.results);
-        setCanSyncMore(data.canSyncMore);
         updateWcRealResults(data.results);
       }
     } catch (err: any) {
-      console.error('Error fetching World Cup results:', err);
-    }
-  };
-
-  // Synchronize dynamic results with the backend API
-  const handleSyncResults = async () => {
-    setSyncStatus('syncing');
-    setSyncLogs([]);
-    setShowSyncPanel(true);
-    
-    const logs = [
-      '⚡ Iniciando conexión con Flashscore Secure API endpoint...',
-      '📡 Resolviendo enlace satelital con los servidores de la Copa Mundial...',
-      '🔍 Descargando estadísticas avanzadas de 16 partidos (Grupo A-H, Jornada 2)...',
-      '💬 Leyendo micro-métricas: xG acumulado, porcentajes de posesión Dixon-Coles...',
-      '📊 Alimentando el algoritmo de regresión de Poisson multivariado...',
-      '🎯 Ajustando calificaciones de momentum ofensivo y potencia de repliegue...'
-    ];
-
-    // Stagger logs sequentially to show a beautifully handcrafted premium terminal experience
-    for (let i = 0; i < logs.length; i++) {
-      await new Promise(resolve => setTimeout(resolve, 600));
-      setSyncLogs(prev => [...prev, logs[i]]);
-    }
-
-    try {
-      const data = await safeJsonFetch('/api/wc-results/sync', { method: 'POST' });
-      if (data.success) {
-        await new Promise(resolve => setTimeout(resolve, 600));
-        setRealResults(data.results);
-        setCanSyncMore(data.canSyncMore);
-        updateWcRealResults(data.results);
-        setSyncStatus('success');
-        setSyncLogs(prev => [
-          ...prev, 
-          `✅ Sincronización exitosa con Flashscore. ${data.syncedCount} partidos analizados e incorporados. Total de partidos jugados: ${data.totalCount}.`, 
-          '🏆 Probabilidades de consagración mundial re-calculadas con éxito en tiempo real.'
-        ]);
-      } else {
-        setSyncStatus('error');
-        setSyncLogs(prev => [...prev, '❌ Error durante el enlace de datos: ' + data.error]);
-      }
-    } catch (err: any) {
-      setSyncStatus('error');
-      setSyncLogs(prev => [...prev, '❌ Error de red al enlazar con la Flashscore API: ' + err.message]);
-    }
-  };
-
-  // Reset to baseline matches
-  const handleResetBaseline = async () => {
-    setSyncStatus('syncing');
-    setSyncLogs(['🔄 Solicitando reinicio del fixture al estado Baseline de la Jornada 1...', '⏳ Restableciendo momentum...']);
-    setShowSyncPanel(true);
-    await new Promise(resolve => setTimeout(resolve, 600));
-
-    try {
-      const data = await safeJsonFetch('/api/wc-results/reset', { method: 'POST' });
-      if (data.success) {
-        await new Promise(resolve => setTimeout(resolve, 600));
-        setRealResults(data.results);
-        setCanSyncMore(data.canSyncMore);
-        updateWcRealResults(data.results);
-        setSyncStatus('success');
-        setSyncLogs(prev => [
-          ...prev, 
-          '✅ Reinicio de fixture completado. Restaurados los 24 partidos de la Jornada 1.', 
-          '📊 Fuerza de planteles ELO ajustada a Baseline.'
-        ]);
-      }
-    } catch (err: any) {
-      setSyncLogs(prev => [...prev, '❌ Error al restablecer: ' + err.message]);
-      setSyncStatus('error');
+      console.log('No backend API found or failed, using local pre-defined World Cup results.');
     }
   };
 
@@ -336,7 +258,7 @@ export default function App() {
               </p>
             </div>
 
-            {/* Toggle, Sync & Reset controls */}
+            {/* Toggle controls */}
             <div className="flex flex-wrap items-center gap-3 bg-slate-950/80 p-2 border border-white/5 rounded-2xl shrink-0 self-start md:self-center">
               <div className="flex items-center gap-1 bg-black/40 p-1 rounded-lg">
                 <button
@@ -361,67 +283,8 @@ export default function App() {
                   Condicionado {realResults.length} Juegos (v4.5)
                 </button>
               </div>
-
-              <div className="flex items-center gap-1.5">
-                <button
-                  onClick={handleSyncResults}
-                  disabled={syncStatus === 'syncing' || !canSyncMore}
-                  className={`px-3.5 py-1.5 text-[10.5px] font-mono font-bold rounded-lg flex items-center gap-1.5 transition-all cursor-pointer shadow-md ${
-                    syncStatus === 'syncing'
-                      ? 'bg-amber-600/20 text-amber-400 border border-amber-600/30'
-                      : !canSyncMore
-                      ? 'bg-white/5 text-slate-500 border border-white/5 cursor-not-allowed'
-                      : 'bg-emerald-400 text-black hover:bg-emerald-350 font-bold'
-                  }`}
-                  id="live-sync-button"
-                >
-                  <RefreshCw className={`w-3 h-3 ${syncStatus === 'syncing' ? 'animate-spin' : ''}`} />
-                  <span>{syncStatus === 'syncing' ? 'Sincronizando...' : !canSyncMore ? 'API al día' : 'Sincronizar Flashscore API'}</span>
-                </button>
-
-                {!canSyncMore && (
-                  <button
-                    onClick={handleResetBaseline}
-                    disabled={syncStatus === 'syncing'}
-                    className="px-2.5 py-1.5 text-[10.5px] font-mono font-bold rounded-lg bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/15 transition-all cursor-pointer"
-                  >
-                    Reset
-                  </button>
-                )}
-              </div>
             </div>
           </div>
-
-          {/* Dynamic Sync terminal logs */}
-          {showSyncPanel && (
-            <div className="bg-slate-950 rounded-xl border border-white/5 p-4 space-y-2 font-mono text-xs text-slate-300 relative max-h-[220px] overflow-y-auto">
-              <div className="flex items-center justify-between border-b border-white/5 pb-2 text-[10px] text-slate-400">
-                <span className="flex items-center gap-1.5 font-bold uppercase tracking-wide">
-                  <Terminal className="w-3.5 h-3.5 text-emerald-400" />
-                  Consola de Enlace API (Flashscore v3.8)
-                </span>
-                <button 
-                  onClick={() => setShowSyncPanel(false)}
-                  className="text-slate-500 hover:text-white"
-                >
-                  Cerrar Consola [x]
-                </button>
-              </div>
-              
-              <div className="space-y-1.5 pt-1.5">
-                {syncLogs.map((log, index) => (
-                  <div key={index} className="leading-relaxed whitespace-pre-wrap">
-                    {log}
-                  </div>
-                ))}
-                {syncStatus === 'syncing' && (
-                  <div className="flex items-center gap-2 text-amber-400 animate-pulse">
-                    <span>⚡ Analizando streams de fútbol en vivo...</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
 
           <div className="border-t border-white/5 pt-3 flex flex-wrap items-center justify-between gap-3 text-xs">
             <div className="text-slate-500 font-mono text-[10.5px]">
@@ -538,20 +401,6 @@ export default function App() {
               ) : predictionResult ? (
                 <div className="animate-fade-in space-y-6">
                   <PredictionDashboard result={predictionResult} />
-                  
-                  <AiSimulationCenter
-                    teamAId={teamAId}
-                    teamBId={teamBId}
-                    teams={teams}
-                    realResultsCount={realResults.length}
-                    onResultsUpdated={(results) => {
-                      setRealResults(results);
-                      const updated = useLiveCalibratedElos ? computeCalibratedElos(TEAMS, results) : TEAMS;
-                      setTeams(updated);
-                      runPrediction(teamAId, teamBId, isNeutral, simCount, isKnockout, updated);
-                    }}
-                    onReset={handleResetBaseline}
-                  />
                 </div>
               ) : (
                 <div className="text-center p-12 text-slate-500">

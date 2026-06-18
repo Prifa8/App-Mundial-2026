@@ -830,7 +830,7 @@ export const TEAMS: Team[] = [
   },
   {
     id: 'cze',
-    name: 'Chequia',
+    name: 'República Checa',
     code: 'CZE',
     type: 'national',
     continent: 'UEFA',
