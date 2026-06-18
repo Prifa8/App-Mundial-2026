@@ -2,6 +2,31 @@ import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { WC_2026_REAL_RESULTS, RealMatch } from "./src/data/wc2026Results";
+import { TEAMS } from "./src/data/teams";
+import { GoogleGenAI, Type } from "@google/genai";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+let aiInstance: any = null;
+
+function getGeminiClient() {
+  if (!aiInstance) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("La clave GEMINI_API_KEY no está configurada. Por favor, añádela en Settings > Secrets en tu espacio de trabajo.");
+    }
+    aiInstance = new GoogleGenAI({
+      apiKey: apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
+  }
+  return aiInstance;
+}
 
 async function startServer() {
   const app = express();
@@ -178,6 +203,122 @@ async function startServer() {
       });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
+    }
+  });
+
+  // API - Real-time AI Simulation of a Match using Gemini
+  app.post("/api/wc-results/ai-generate", async (req, res) => {
+    try {
+      const { team1Id, team2Id } = req.body;
+      
+      // Look up teams
+      let t1 = TEAMS.find(t => t.id === team1Id);
+      let t2 = TEAMS.find(t => t.id === team2Id);
+
+      // If missing, select two that haven't played and are available
+      if (!t1 || !t2) {
+        const playedIds = new Set(currentResults.flatMap(r => [r.team1Id, r.team2Id]));
+        const unplayed = TEAMS.filter(t => !playedIds.has(t.id));
+        if (unplayed.length >= 2) {
+          t1 = unplayed[Math.floor(Math.random() * unplayed.length)];
+          const unplayed2 = unplayed.filter(t => t.id !== t1!.id);
+          t2 = unplayed2[Math.floor(Math.random() * unplayed2.length)];
+        } else {
+          t1 = TEAMS[0];
+          t2 = TEAMS[1];
+        }
+      }
+
+      if (!t1 || !t2) {
+        return res.status(400).json({ success: false, error: "Equipos no válidos para la simulación de juego." });
+      }
+
+      // Initialize Gemini Client Lazily
+      const ai = getGeminiClient();
+
+      // We'll generate a realistic football scoreline with custom statistics & minute-by-minute timeline
+      const prompt = `Simula un partido de fútbol hiperrealista para la Copa Mundial de la FIFA 2026 entre:
+Equipo 1: ${t1.name} (ID: ${t1.id}, FIFA Rank: #${t1.fifaRanking}, ELO: ${t1.elo}, Poder Ofensivo: ${t1.offPower}, Poder Defensivo: ${t1.defPower})
+Equipo 2: ${t2.name} (ID: ${t2.id}, FIFA Rank: #${t2.fifaRanking}, ELO: ${t2.elo}, Poder Ofensivo: ${t2.offPower}, Poder Defensivo: ${t2.defPower})
+
+Requisitos:
+1. El resultado, posesión (debe sumar 100 y ser proporcional a ELO/Spi), tiros de esquina, tiros totales, tiros al arco y goles esperados (xg1, xg2) deben correlacionarse de forma lógica con las fuerzas de los equipos.
+2. Genera scores lógicos de goles (score1 para Equipo 1, score2 para Equipo 2), típicamente de 0 a 4 goles.
+3. Elabora un histórico 'timeline' cronológico (minutos del 1 al 90) con una lista de entre 5 y 10 acontecimientos clave. El número de eventos 'goal' debe coincidir exactamente con el score de cada equipo, e incluir "minute", "type" ("goal", "shot", "save", "card", "comment"), "teamId" (ID del equipo), "player" (nombre del jugador ficticio destacado de esa selección) y "description" (comentario narrativo en español).
+4. Redacta de forma profesional y con emoción periodística en español.
+5. En 'aiTacticalSummary', proporciona un análisis táctico técnico de 2 a 3 líneas del partido en español.
+6. En 'aiStrategicDecision', ofrece una recomendación o predicción sobre cómo este resultado afecta a las selecciones en el transcurso del mundial.`;
+
+      // Call Gemini API with Structured Schema
+      const response = await ai.models.generateContent({
+        model: "gemini-3.5-flash",
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              team1Id: { type: Type.STRING },
+              team2Id: { type: Type.STRING },
+              score1: { type: Type.INTEGER },
+              score2: { type: Type.INTEGER },
+              xg1: { type: Type.NUMBER },
+              xg2: { type: Type.NUMBER },
+              possession1: { type: Type.INTEGER },
+              possession2: { type: Type.INTEGER },
+              shots1: { type: Type.INTEGER },
+              shots2: { type: Type.INTEGER },
+              shotsOnTarget1: { type: Type.INTEGER },
+              shotsOnTarget2: { type: Type.INTEGER },
+              corners1: { type: Type.INTEGER },
+              corners2: { type: Type.INTEGER },
+              date: { type: Type.STRING },
+              group: { type: Type.STRING },
+              status: { type: Type.STRING },
+              aiTacticalSummary: { type: Type.STRING },
+              aiStrategicDecision: { type: Type.STRING },
+              timeline: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    minute: { type: Type.INTEGER },
+                    type: { type: Type.STRING }, 
+                    teamId: { type: Type.STRING },
+                    player: { type: Type.STRING },
+                    description: { type: Type.STRING }
+                  },
+                  required: ["minute", "type", "teamId", "player", "description"]
+                }
+              }
+            },
+            required: [
+              "team1Id", "team2Id", "score1", "score2", "xg1", "xg2",
+              "possession1", "possession2", "shots1", "shots2", "shotsOnTarget1", "shotsOnTarget2",
+              "corners1", "corners2", "date", "group", "status", "aiTacticalSummary", "aiStrategicDecision", "timeline"
+            ]
+          }
+        }
+      });
+
+      const resultText = response.text;
+      if (!resultText) {
+        throw new Error("No se recibió respuesta del modelo de IA.");
+      }
+
+      const parsedMatch = JSON.parse(resultText.trim());
+      
+      // Append to server lists
+      currentResults.push(parsedMatch);
+
+      res.json({
+        success: true,
+        match: parsedMatch,
+        totalResultsCount: currentResults.length
+      });
+    } catch (err: any) {
+      console.error("AI Match Generation error:", err);
+      res.status(500).json({ success: false, error: err.message || "Error al simular partido con IA" });
     }
   });
 

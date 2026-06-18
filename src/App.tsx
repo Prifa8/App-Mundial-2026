@@ -11,6 +11,7 @@ import EloLeaderboard from './components/EloLeaderboard';
 import TournamentSimulator from './components/TournamentSimulator';
 import ModelValidation from './components/ModelValidation';
 import ApiPlayground from './components/ApiPlayground';
+import AiSimulationCenter from './components/AiSimulationCenter';
 
 import { 
   Trophy, 
@@ -51,16 +52,31 @@ export default function App() {
     fetchResults();
   }, []);
 
+  const safeJsonFetch = async (url: string, init?: RequestInit) => {
+    const res = await fetch(url, init);
+    if (!res.ok) {
+      const text = await res.text();
+      const cleanText = text.replace(/<[^>]*>/g, '').trim().slice(0, 150);
+      throw new Error(`[HTTP ${res.status}] ${cleanText || res.statusText}`);
+    }
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      const text = await res.text();
+      const cleanText = text.replace(/<[^>]*>/g, '').trim().slice(0, 150);
+      throw new Error(`Respuesta no es JSON válida: ${cleanText || 'Vacía'}`);
+    }
+    return res.json();
+  };
+
   const fetchResults = async () => {
     try {
-      const res = await fetch('/api/wc-results');
-      const data = await res.json();
+      const data = await safeJsonFetch('/api/wc-results');
       if (data.success) {
         setRealResults(data.results);
         setCanSyncMore(data.canSyncMore);
         updateWcRealResults(data.results);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error fetching World Cup results:', err);
     }
   };
@@ -87,8 +103,7 @@ export default function App() {
     }
 
     try {
-      const res = await fetch('/api/wc-results/sync', { method: 'POST' });
-      const data = await res.json();
+      const data = await safeJsonFetch('/api/wc-results/sync', { method: 'POST' });
       if (data.success) {
         await new Promise(resolve => setTimeout(resolve, 600));
         setRealResults(data.results);
@@ -118,8 +133,7 @@ export default function App() {
     await new Promise(resolve => setTimeout(resolve, 600));
 
     try {
-      const res = await fetch('/api/wc-results/reset', { method: 'POST' });
-      const data = await res.json();
+      const data = await safeJsonFetch('/api/wc-results/reset', { method: 'POST' });
       if (data.success) {
         await new Promise(resolve => setTimeout(resolve, 600));
         setRealResults(data.results);
@@ -522,8 +536,22 @@ export default function App() {
                   </span>
                 </div>
               ) : predictionResult ? (
-                <div className="animate-fade-in">
+                <div className="animate-fade-in space-y-6">
                   <PredictionDashboard result={predictionResult} />
+                  
+                  <AiSimulationCenter
+                    teamAId={teamAId}
+                    teamBId={teamBId}
+                    teams={teams}
+                    realResultsCount={realResults.length}
+                    onResultsUpdated={(results) => {
+                      setRealResults(results);
+                      const updated = useLiveCalibratedElos ? computeCalibratedElos(TEAMS, results) : TEAMS;
+                      setTeams(updated);
+                      runPrediction(teamAId, teamBId, isNeutral, simCount, isKnockout, updated);
+                    }}
+                    onReset={handleResetBaseline}
+                  />
                 </div>
               ) : (
                 <div className="text-center p-12 text-slate-500">
