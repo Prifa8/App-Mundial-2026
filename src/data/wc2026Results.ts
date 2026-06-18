@@ -21,178 +21,183 @@ export interface RealMatch {
   corners2?: number;
 }
 
-export const WC_2026_REAL_RESULTS: RealMatch[] = [
+export let WC_2026_REAL_RESULTS: RealMatch[] = [
   {
     team1Id: 'mex', team2Id: 'rsa', score1: 2, score2: 0,
     date: '11 de junio, 2026', status: 'FT', group: 'Grupo A',
-    xg1: 1.41, xg2: 0.07, possession1: 58, possession2: 42,
-    shots1: 15, shots2: 3, shotsOnTarget1: 6, shotsOnTarget2: 1,
+    xg1: 1.45, xg2: 0.18, possession1: 61, possession2: 39,
+    shots1: 16, shots2: 3, shotsOnTarget1: 4, shotsOnTarget2: 2,
     corners1: 5, corners2: 2
   },
   {
     team1Id: 'kor', team2Id: 'cze', score1: 2, score2: 1,
     date: '11 de junio, 2026', status: 'FT', group: 'Grupo A',
-    xg1: 1.84, xg2: 0.81, possession1: 61, possession2: 39,
-    shots1: 18, shots2: 8, shotsOnTarget1: 7, shotsOnTarget2: 3,
+    xg1: 2.30, xg2: 0.83, possession1: 62, possession2: 38,
+    shots1: 15, shots2: 7, shotsOnTarget1: 6, shotsOnTarget2: 4,
     corners1: 6, corners2: 4
   },
   {
     team1Id: 'can', team2Id: 'bih', score1: 1, score2: 1,
     date: '12 de junio, 2026', status: 'FT', group: 'Grupo B',
-    xg1: 1.15, xg2: 1.05, possession1: 52, possession2: 48,
-    shots1: 12, shots2: 10, shotsOnTarget1: 4, shotsOnTarget2: 4,
+    xg1: 1.28, xg2: 0.95, possession1: 61, possession2: 39,
+    shots1: 13, shots2: 8, shotsOnTarget1: 4, shotsOnTarget2: 3,
     corners1: 4, corners2: 5
-  },
-  {
-    team1Id: 'usa', team2Id: 'par', score1: 4, score2: 1,
-    date: '12 de junio, 2026', status: 'FT', group: 'Grupo D',
-    xg1: 2.65, xg2: 0.95, possession1: 55, possession2: 45,
-    shots1: 22, shots2: 11, shotsOnTarget1: 10, shotsOnTarget2: 3,
-    corners1: 7, corners2: 3
   },
   {
     team1Id: 'qat', team2Id: 'sui', score1: 1, score2: 1,
     date: '13 de junio, 2026', status: 'FT', group: 'Grupo B',
-    xg1: 0.85, xg2: 1.65, possession1: 40, possession2: 60,
-    shots1: 7, shots2: 17, shotsOnTarget1: 2, shotsOnTarget2: 5,
+    xg1: 0.61, xg2: 3.01, possession1: 32, possession2: 68,
+    shots1: 6, shots2: 26, shotsOnTarget1: 3, shotsOnTarget2: 7,
     corners1: 2, corners2: 8
   },
   {
     team1Id: 'bra', team2Id: 'mar', score1: 1, score2: 1,
     date: '13 de junio, 2026', status: 'FT', group: 'Grupo C',
-    xg1: 1.45, xg2: 1.25, possession1: 54, possession2: 46,
-    shots1: 13, shots2: 11, shotsOnTarget1: 4, shotsOnTarget2: 4,
+    xg1: 1.29, xg2: 1.33, possession1: 51, possession2: 49,
+    shots1: 12, shots2: 14, shotsOnTarget1: 5, shotsOnTarget2: 3,
     corners1: 5, corners2: 4
   },
   {
     team1Id: 'hai', team2Id: 'sco', score1: 0, score2: 1,
     date: '13 de junio, 2026', status: 'FT', group: 'Grupo C',
-    xg1: 0.55, xg2: 1.25, possession1: 35, possession2: 65,
-    shots1: 5, shots2: 14, shotsOnTarget1: 1, shotsOnTarget2: 5,
+    xg1: 1.06, xg2: 1.05, possession1: 54, possession2: 46,
+    shots1: 15, shots2: 9, shotsOnTarget1: 2, shotsOnTarget2: 2,
     corners1: 2, corners2: 6
+  },
+  {
+    team1Id: 'usa', team2Id: 'par', score1: 4, score2: 1,
+    date: '12 de junio, 2026', status: 'FT', group: 'Grupo D',
+    xg1: 1.66, xg2: 0.58, possession1: 65, possession2: 35,
+    shots1: 16, shots2: 9, shotsOnTarget1: 6, shotsOnTarget2: 1,
+    corners1: 7, corners2: 3
   },
   {
     team1Id: 'aus', team2Id: 'tur', score1: 2, score2: 0,
     date: '14 de junio, 2026', status: 'FT', group: 'Grupo D',
-    xg1: 1.35, xg2: 0.85, possession1: 48, possession2: 52,
-    shots1: 11, shots2: 9, shotsOnTarget1: 5, shotsOnTarget2: 2,
+    xg1: 1.16, xg2: 1.74, possession1: 28, possession2: 72,
+    shots1: 9, shots2: 30, shotsOnTarget1: 4, shotsOnTarget2: 8,
     corners1: 4, corners2: 5
   },
   {
     team1Id: 'ger', team2Id: 'cuw', score1: 7, score2: 1,
     date: '14 de junio, 2026', status: 'FT', group: 'Grupo E',
-    xg1: 4.85, xg2: 0.45, possession1: 72, possession2: 28,
-    shots1: 28, shots2: 4, shotsOnTarget1: 14, shotsOnTarget2: 1,
+    xg1: 4.07, xg2: 0.50, possession1: 65, possession2: 35,
+    shots1: 26, shots2: 8, shotsOnTarget1: 12, shotsOnTarget2: 2,
     corners1: 11, corners2: 1
   },
   {
-    team1Id: 'ned', team2Id: 'jpn', score1: 2, score2: 2,
-    date: '14 de junio, 2026', status: 'FT', group: 'Grupo H',
-    xg1: 1.95, xg2: 1.85, possession1: 50, possession2: 50,
-    shots1: 14, shots2: 15, shotsOnTarget1: 6, shotsOnTarget2: 7,
-    corners1: 5, corners2: 6
-  },
-  {
     team1Id: 'civ', team2Id: 'ecu', score1: 1, score2: 0,
-    date: '14 de junio, 2026', status: 'FT', group: 'Grupo I',
-    xg1: 1.05, xg2: 0.95, possession1: 45, possession2: 55,
-    shots1: 10, shots2: 11, shotsOnTarget1: 3, shotsOnTarget2: 2,
+    date: '14 de junio, 2026', status: 'FT', group: 'Grupo E',
+    xg1: 1.52, xg2: 0.97, possession1: 48, possession2: 52,
+    shots1: 15, shots2: 12, shotsOnTarget1: 4, shotsOnTarget2: 1,
     corners1: 4, corners2: 4
   },
   {
+    team1Id: 'ned', team2Id: 'jpn', score1: 2, score2: 2,
+    date: '14 de junio, 2026', status: 'FT', group: 'Grupo F',
+    xg1: 1.07, xg2: 0.78, possession1: 60, possession2: 40,
+    shots1: 10, shots2: 10, shotsOnTarget1: 6, shotsOnTarget2: 3,
+    corners1: 5, corners2: 6
+  },
+  {
     team1Id: 'swe', team2Id: 'tun', score1: 5, score2: 1,
-    date: '14 de junio, 2026', status: 'FT', group: 'Grupo J',
-    xg1: 3.15, xg2: 0.75, possession1: 60, possession2: 40,
-    shots1: 19, shots2: 7, shotsOnTarget1: 9, shotsOnTarget2: 2,
+    date: '15 de junio, 2026', status: 'FT', group: 'Grupo F',
+    xg1: 1.46, xg2: 0.40, possession1: 49, possession2: 51,
+    shots1: 13, shots2: 6, shotsOnTarget1: 7, shotsOnTarget2: 2,
     corners1: 6, corners2: 3
   },
   {
     team1Id: 'bel', team2Id: 'egy', score1: 1, score2: 1,
-    date: '15 de junio, 2026', status: 'FT', group: 'Grupo H',
-    xg1: 1.35, xg2: 1.15, possession1: 57, possession2: 43,
-    shots1: 13, shots2: 10, shotsOnTarget1: 4, shotsOnTarget2: 3,
+    date: '15 de junio, 2026', status: 'FT', group: 'Grupo G',
+    xg1: 1.35, xg2: 1.09, possession1: 54, possession2: 46,
+    shots1: 15, shots2: 14, shotsOnTarget1: 3, shotsOnTarget2: 3,
     corners1: 5, corners2: 4
   },
   {
     team1Id: 'irn', team2Id: 'nzl', score1: 2, score2: 2,
-    date: '15 de junio, 2026', status: 'FT', group: 'Grupo G',
-    xg1: 1.55, xg2: 1.35, possession1: 55, possession2: 45,
-    shots1: 12, shots2: 9, shotsOnTarget1: 5, shotsOnTarget2: 4,
+    date: '16 de junio, 2026', status: 'FT', group: 'Grupo G',
+    xg1: 1.57, xg2: 1.32, possession1: 49, possession2: 51,
+    shots1: 17, shots2: 14, shotsOnTarget1: 4, shotsOnTarget2: 8,
     corners1: 4, corners2: 3
   },
   {
     team1Id: 'esp', team2Id: 'cpv', score1: 0, score2: 0,
-    date: '15 de junio, 2026', status: 'FT', group: 'Grupo I',
-    xg1: 1.55, xg2: 0.22, possession1: 75, possession2: 25,
-    shots1: 16, shots2: 2, shotsOnTarget1: 4, shotsOnTarget2: 0,
+    date: '15 de junio, 2026', status: 'FT', group: 'Grupo H',
+    xg1: 2.26, xg2: 0.25, possession1: 74, possession2: 26,
+    shots1: 27, shots2: 6, shotsOnTarget1: 7, shotsOnTarget2: 1,
     corners1: 9, corners2: 1
   },
   {
     team1Id: 'ksa', team2Id: 'uru', score1: 1, score2: 1,
-    date: '15 de junio, 2026', status: 'FT', group: 'Grupo F',
-    xg1: 0.95, xg2: 1.75, possession1: 41, possession2: 59,
-    shots1: 8, shots2: 16, shotsOnTarget1: 3, shotsOnTarget2: 6,
+    date: '15 de junio, 2026', status: 'FT', group: 'Grupo H',
+    xg1: 0.70, xg2: 1.97, possession1: 33, possession2: 67,
+    shots1: 7, shots2: 27, shotsOnTarget1: 3, shotsOnTarget2: 10,
     corners1: 3, corners2: 7
   },
   {
     team1Id: 'fra', team2Id: 'sen', score1: 3, score2: 1,
-    date: '16 de junio, 2026', status: 'FT', group: 'Grupo J',
-    xg1: 2.25, xg2: 1.05, possession1: 58, possession2: 42,
-    shots1: 17, shots2: 10, shotsOnTarget1: 6, shotsOnTarget2: 3,
+    date: '16 de junio, 2026', status: 'FT', group: 'Grupo I',
+    xg1: 1.75, xg2: 0.54, possession1: 53, possession2: 47,
+    shots1: 11, shots2: 6, shotsOnTarget1: 8, shotsOnTarget2: 2,
     corners1: 6, corners2: 4
   },
   {
-    team1Id: 'nor', team2Id: 'irq', score1: 4, score2: 1,
-    date: '16 de junio, 2026', status: 'FT', group: 'Grupo E',
-    xg1: 2.55, xg2: 0.85, possession1: 62, possession2: 38,
-    shots1: 19, shots2: 7, shotsOnTarget1: 8, shotsOnTarget2: 2,
+    team1Id: 'irq', team2Id: 'nor', score1: 1, score2: 4,
+    date: '16 de junio, 2026', status: 'FT', group: 'Grupo I',
+    xg1: 0.82, xg2: 2.30, possession1: 39, possession2: 61,
+    shots1: 11, shots2: 12, shotsOnTarget1: 1, shotsOnTarget2: 5,
     corners1: 7, corners2: 2
   },
   {
     team1Id: 'arg', team2Id: 'alg', score1: 3, score2: 0,
-    date: '17 de junio, 2026', status: 'FT', group: 'Grupo K',
-    xg1: 2.80, xg2: 0.40, possession1: 64, possession2: 36,
-    shots1: 18, shots2: 6, shotsOnTarget1: 8, shotsOnTarget2: 2,
+    date: '17 de junio, 2026', status: 'FT', group: 'Grupo J',
+    xg1: 1.34, xg2: 0.38, possession1: 48, possession2: 52,
+    shots1: 10, shots2: 7, shotsOnTarget1: 6, shotsOnTarget2: 0,
     corners1: 8, corners2: 3
   },
   {
     team1Id: 'aut', team2Id: 'jor', score1: 3, score2: 1,
-    date: '17 de junio, 2026', status: 'FT', group: 'Grupo F',
-    xg1: 1.95, xg2: 0.75, possession1: 58, possession2: 42,
-    shots1: 14, shots2: 7, shotsOnTarget1: 6, shotsOnTarget2: 2,
+    date: '17 de junio, 2026', status: 'FT', group: 'Grupo J',
+    xg1: 1.60, xg2: 0.72, possession1: 63, possession2: 37,
+    shots1: 11, shots2: 11, shotsOnTarget1: 4, shotsOnTarget2: 4,
     corners1: 5, corners2: 3
   },
   {
-    team1Id: 'cro', team2Id: 'ven', score1: 2, score2: 1,
-    date: '15 de junio, 2026', status: 'FT', group: 'Grupo G',
-    xg1: 1.65, xg2: 1.05, possession1: 54, possession2: 46,
-    shots1: 14, shots2: 9, shotsOnTarget1: 5, shotsOnTarget2: 3,
-    corners1: 5, corners2: 3
-  },
-  {
-    team1Id: 'col', team2Id: 'per', score1: 2, score2: 0,
+    team1Id: 'por', team2Id: 'cod', score1: 1, score2: 1,
     date: '17 de junio, 2026', status: 'FT', group: 'Grupo K',
-    xg1: 1.85, xg2: 0.65, possession1: 57, possession2: 43,
-    shots1: 16, shots2: 7, shotsOnTarget1: 6, shotsOnTarget2: 2,
-    corners1: 6, corners2: 2
+    xg1: 0.75, xg2: 0.84, possession1: 75, possession2: 25,
+    shots1: 7, shots2: 8, shotsOnTarget1: 1, shotsOnTarget2: 2,
+    corners1: 4, corners2: 3
   },
   {
-    team1Id: 'eng', team2Id: 'por', score1: 1, score2: 1,
-    date: '16 de junio, 2026', status: 'FT', group: 'Grupo L',
-    xg1: 1.45, xg2: 1.35, possession1: 52, possession2: 48,
-    shots1: 13, shots2: 12, shotsOnTarget1: 4, shotsOnTarget2: 4,
-    corners1: 5, corners2: 5
+    team1Id: 'uzb', team2Id: 'col', score1: 1, score2: 3,
+    date: '18 de junio, 2026', status: 'FT', group: 'Grupo K',
+    xg1: 1.16, xg2: 1.62, possession1: 45, possession2: 55,
+    shots1: 11, shots2: 15, shotsOnTarget1: 4, shotsOnTarget2: 6,
+    corners1: 3, corners2: 5
   },
   {
-    team1Id: 'ita', team2Id: 'den', score1: 2, score2: 1,
+    team1Id: 'eng', team2Id: 'cro', score1: 4, score2: 2,
     date: '17 de junio, 2026', status: 'FT', group: 'Grupo L',
-    xg1: 1.55, xg2: 0.95, possession1: 53, possession2: 47,
-    shots1: 12, shots2: 9, shotsOnTarget1: 5, shotsOnTarget2: 3,
-    corners1: 4, corners2: 4
+    xg1: 2.80, xg2: 0.71, possession1: 52, possession2: 48,
+    shots1: 22, shots2: 10, shotsOnTarget1: 11, shotsOnTarget2: 5,
+    corners1: 6, corners2: 4
+  },
+  {
+    team1Id: 'gha', team2Id: 'pan', score1: 1, score2: 0,
+    date: '17 de junio, 2026', status: 'FT', group: 'Grupo L',
+    xg1: 1.25, xg2: 0.75, possession1: 44, possession2: 56,
+    shots1: 7, shots2: 11, shotsOnTarget1: 2, shotsOnTarget2: 3,
+    corners1: 3, corners2: 5
   }
 ];
 
-export function computeCalibratedElos(baseTeams: Team[]): Team[] {
+export function updateWcRealResults(newResults: RealMatch[]) {
+  WC_2026_REAL_RESULTS.length = 0;
+  WC_2026_REAL_RESULTS.push(...newResults);
+}
+
+export function computeCalibratedElos(baseTeams: Team[], results: RealMatch[] = WC_2026_REAL_RESULTS): Team[] {
   // Deep copy baseTeams so we don't mutate input
   const teamsMap = new Map(baseTeams.map(t => [t.id, { ...t }]));
 
@@ -209,7 +214,7 @@ export function computeCalibratedElos(baseTeams: Team[]): Team[] {
     return 1 / (1 + Math.pow(10, (b - (a + hb)) / 400));
   };
 
-  for (const match of WC_2026_REAL_RESULTS) {
+  for (const match of results) {
     const t1 = teamsMap.get(match.team1Id);
     const t2 = teamsMap.get(match.team2Id);
     if (!t1 || !t2) continue;
