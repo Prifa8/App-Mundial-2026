@@ -59,6 +59,17 @@ export interface MatchPredictionResult {
   isKnockout: boolean;
   simulationsRun: number;
   
+  h2h?: {
+    played: number;
+    winsA: number;
+    winsB: number;
+    draws: number;
+    goalsA: number;
+    goalsB: number;
+    advantage: 'A' | 'B' | 'none';
+    description: string;
+  };
+  
   // Probabilidades Finales (Ensemble Metamodel)
   probA: number; // 0 to 1
   probDraw: number; // 0 to 1

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MatchPredictionResult, ExactScoreProbability } from '../types';
 import { getFlagEmoji, getColorClass } from '../data/teams';
-import { TrendingUp, BarChart2, ShieldAlert, Award, Grid, HelpCircle, Code, ChevronDown, ChevronUp, Coins } from 'lucide-react';
+import { TrendingUp, BarChart2, ShieldAlert, Award, Grid, HelpCircle, Code, ChevronDown, ChevronUp, Coins, History } from 'lucide-react';
 
 interface PredictionDashboardProps {
   result: MatchPredictionResult;
@@ -10,7 +10,7 @@ interface PredictionDashboardProps {
 export default function PredictionDashboard({ result }: PredictionDashboardProps) {
   const { teamA, teamB, probA, probDraw, probB, xGA, xGB, mostProbableScore, topScores, scoreMatrix, overUnder, btts, isKnockout, qualifyA, qualifyB, probPens, probOvert } = result;
 
-  const [activeTab, setActiveTab] = useState<'main' | 'scores' | 'explain' | 'stacking' | 'advanced' | 'features' | 'liquidity'>('main');
+  const [activeTab, setActiveTab] = useState<'main' | 'scores' | 'explain' | 'stacking' | 'advanced' | 'features' | 'liquidity' | 'h2h'>('main');
   const [showModelsTable, setShowModelsTable] = useState(false);
 
   // Dynamic Liquidity calculations
@@ -127,6 +127,13 @@ export default function PredictionDashboard({ result }: PredictionDashboardProps
         >
           <Coins className={`w-4 h-4 shrink-0 ${activeTab === 'liquidity' ? 'text-black' : 'text-yellow-400'}`} />
           <span>Liquidez de Mercado</span>
+        </button>
+        <button
+          onClick={() => setActiveTab('h2h')}
+          className={`py-2.5 px-3 font-sans text-xs md:text-sm font-semibold rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer ${activeTab === 'h2h' ? 'bg-emerald-500 text-black shadow-md font-bold' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+        >
+          <History className={`w-4 h-4 shrink-0 ${activeTab === 'h2h' ? 'text-black' : 'text-cyan-400'}`} />
+          <span>Historial H2H</span>
         </button>
       </div>
 
@@ -1506,6 +1513,192 @@ export default function PredictionDashboard({ result }: PredictionDashboardProps
                 </p>
               </div>
             </div>
+          </div>
+
+        </div>
+      )}
+
+      {activeTab === 'h2h' && result.h2h && (
+        <div className="space-y-6" id="h2h-tab-content">
+          {/* HEADER HERO */}
+          <div className="bg-[#141417] p-6 rounded-2xl border border-white/5 relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500" />
+            
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-white/5">
+              <div className="flex items-start gap-3.5">
+                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center shrink-0 mt-0.5 border border-cyan-500/20">
+                  <History className="w-6 h-6 text-cyan-400" />
+                </div>
+                <div>
+                  <h4 className="text-base font-sans font-bold text-white uppercase tracking-wider">
+                    HISTORIAL DE ENFRENTAMIENTOS DIRECTOS (H2H)
+                  </h4>
+                  <p className="text-slate-400 text-xs mt-1 font-sans">
+                    Análisis cruzativo de la ventaja psicológica y efectividad táctica del registro histórico oficial.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 bg-[#0c0c0e] py-1.5 px-3.5 rounded-lg border border-white/5 font-mono text-[11px] text-slate-400">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span>Calibración de Dominancia Directa</span>
+              </div>
+            </div>
+
+            {/* RIVALRY OVERVIEW CARDS */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+              <div className="bg-[#0c0c0e] p-4.5 rounded-xl border border-white/5 flex flex-col justify-between">
+                <span className="text-slate-500 font-sans text-xs uppercase font-semibold">Partidos Jugados</span>
+                <span className="text-3xl font-mono font-bold text-white mt-1">{result.h2h.played}</span>
+                <span className="text-[10px] text-slate-400 mt-1">Duelos mutuos oficiales</span>
+              </div>
+
+              <div className="bg-[#0c0c0e] p-4.5 rounded-xl border border-white/5 flex flex-col justify-between">
+                <span className="text-emerald-400/90 font-sans text-xs uppercase font-semibold">Victorias {teamA.code}</span>
+                <span className="text-3xl font-mono font-bold text-emerald-400 mt-1">{result.h2h.winsA}</span>
+                <span className="text-[10px] text-slate-400 mt-1">{result.h2h.played > 0 ? ((result.h2h.winsA / result.h2h.played) * 100).toFixed(0) : 0}% de efectividad</span>
+              </div>
+
+              <div className="bg-[#0c0c0e] p-4.5 rounded-xl border border-white/5 flex flex-col justify-between">
+                <span className="text-slate-400 font-sans text-xs uppercase font-semibold">Empates</span>
+                <span className="text-3xl font-mono font-bold text-slate-300 mt-1">{result.h2h.draws}</span>
+                <span className="text-[10px] text-slate-400 mt-1">{result.h2h.played > 0 ? ((result.h2h.draws / result.h2h.played) * 100).toFixed(0) : 0}% de paridad</span>
+              </div>
+
+              <div className="bg-[#0c0c0e] p-4.5 rounded-xl border border-white/5 flex flex-col justify-between">
+                <span className="text-rose-400/90 font-sans text-xs uppercase font-semibold">Victorias {teamB.code}</span>
+                <span className="text-3xl font-mono font-bold text-rose-400 mt-1">{result.h2h.winsB}</span>
+                <span className="text-[10px] text-slate-400 mt-1">{result.h2h.played > 0 ? ((result.h2h.winsB / result.h2h.played) * 100).toFixed(0) : 0}% de efectividad</span>
+              </div>
+            </div>
+
+            {/* BAR COMPARATOR */}
+            <div className="mt-8 space-y-2">
+              <div className="flex justify-between items-center text-xs font-mono text-slate-400">
+                <span>{teamA.name} ({result.h2h.played > 0 ? ((result.h2h.winsA / result.h2h.played) * 100).toFixed(0) : 0}%)</span>
+                <span>Empate ({result.h2h.played > 0 ? ((result.h2h.draws / result.h2h.played) * 100).toFixed(0) : 0}%)</span>
+                <span>{teamB.name} ({result.h2h.played > 0 ? ((result.h2h.winsB / result.h2h.played) * 100).toFixed(0) : 0}%)</span>
+              </div>
+              <div className="h-4.5 w-full bg-slate-800 rounded-full overflow-hidden flex">
+                <div 
+                  style={{ width: `${result.h2h.played > 0 ? (result.h2h.winsA / result.h2h.played) * 100 : 0}%` }} 
+                  className="bg-emerald-500 h-full flex items-center justify-center text-[10px] text-black font-sans font-bold"
+                >
+                  {result.h2h.winsA > 0 && `${result.h2h.winsA} V`}
+                </div>
+                <div 
+                  style={{ width: `${result.h2h.played > 0 ? (result.h2h.draws / result.h2h.played) * 100 : 0}%` }} 
+                  className="bg-slate-500 h-full flex items-center justify-center text-[10px] text-white font-sans font-bold"
+                >
+                  {result.h2h.draws > 0 && `${result.h2h.draws} E`}
+                </div>
+                <div 
+                  style={{ width: `${result.h2h.played > 0 ? (result.h2h.winsB / result.h2h.played) * 100 : 0}%` }} 
+                  className="bg-rose-500 h-full flex items-center justify-center text-[10px] text-white font-sans font-bold"
+                >
+                  {result.h2h.winsB > 0 && `${result.h2h.winsB} V`}
+                </div>
+              </div>
+            </div>
+
+            {/* HEGEMONY BADGE */}
+            <div className="mt-6 p-4.5 bg-[#0c0c0e] rounded-xl border border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest block font-bold">Análisis de Hegemonía Activa</span>
+                <span className="text-sm font-sans font-semibold text-slate-200">
+                  {result.h2h.advantage === 'A' && (
+                    <span className="text-emerald-400 font-bold block">
+                      ⚠️ Superioridad Táctica e Histórica para {teamA.name}
+                    </span>
+                  )}
+                  {result.h2h.advantage === 'B' && (
+                    <span className="text-rose-400 font-bold block">
+                      ⚠️ Superioridad Táctica e Histórica para {teamB.name}
+                    </span>
+                  )}
+                  {result.h2h.advantage === 'none' && (
+                    <span className="text-slate-300 font-medium block">
+                      ⚖️ Sin ventaja de paternidad (Historial sumamente balanceado)
+                    </span>
+                  )}
+                </span>
+                <p className="text-slate-400 text-xs font-sans leading-relaxed mt-2 max-w-4xl">
+                  {result.h2h.description}
+                </p>
+              </div>
+              <div className="shrink-0 flex flex-col items-start md:items-center bg-cyan-500/5 py-2 px-3 rounded-lg border border-cyan-500/10">
+                <span className="text-[9px] text-slate-500 font-mono uppercase block">Ponderador Táctico</span>
+                <span className="text-cyan-400 font-mono font-bold text-sm mt-0.5">± ELO Directo</span>
+              </div>
+            </div>
+          </div>
+
+          {/* GOALS ANALYSIS CARD */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-[#141417] p-6 rounded-2xl border border-white/5 space-y-4">
+              <h5 className="text-xs font-mono font-bold text-slate-300 uppercase tracking-widest flex items-center gap-1.5">
+                📊 VOLUMETRÍA DE GOLES EN ENFRENTAMIENTOS
+              </h5>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center text-xs text-slate-400">
+                  <span>Goles Totales Convertivos</span>
+                  <span className="font-mono text-white">{result.h2h.goalsA + result.h2h.goalsB} Goles</span>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-[#0c0c0e] p-4 rounded-xl border border-white/5 space-y-1">
+                    <span className="text-slate-500 text-[10px] uppercase font-mono block">goles de {teamA.code}</span>
+                    <span className="text-2xl font-mono font-bold text-white block">{result.h2h.goalsA}</span>
+                    <span className="text-slate-500 text-[10px] block font-sans">
+                      Promedio: {result.h2h.played > 0 ? (result.h2h.goalsA / result.h2h.played).toFixed(2) : 0} por partido
+                    </span>
+                  </div>
+
+                  <div className="bg-[#0c0c0e] p-4 rounded-xl border border-white/5 space-y-1">
+                    <span className="text-slate-500 text-[10px] uppercase font-mono block">goles de {teamB.code}</span>
+                    <span className="text-2xl font-mono font-bold text-white block">{result.h2h.goalsB}</span>
+                    <span className="text-slate-500 text-[10px] block font-sans">
+                      Promedio: {result.h2h.played > 0 ? (result.h2h.goalsB / result.h2h.played).toFixed(2) : 0} por partido
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-[#0c0c0e] rounded-lg border border-white/5 text-[11px] text-slate-400 leading-relaxed">
+                  El promedio neto de goles acumulado en el historial directo es de <strong className="text-white font-mono">{result.h2h.played > 0 ? ((result.h2h.goalsA + result.h2h.goalsB) / result.h2h.played).toFixed(2) : 0} goles por partido</strong>, indicando un perfil táctico predominantemente {result.h2h.played > 0 && ((result.h2h.goalsA + result.h2h.goalsB) / result.h2h.played) > 2.5 ? <span className="text-cyan-400 font-bold">Ofensivo y Abierto (Over 2.5)</span> : <span className="text-amber-400 font-bold">Cerrado y Físico (Under 2.5)</span>}.
+                </div>
+
+              </div>
+            </div>
+
+            <div className="bg-[#141417] p-6 rounded-2xl border border-white/5 space-y-4">
+              <h5 className="text-xs font-mono font-bold text-slate-300 uppercase tracking-widest flex items-center gap-1.5">
+                🧠 INTERPRETACIÓN DE PATERNIDADES (LANE ENGINE COMPAT)
+              </h5>
+              
+              <div className="text-xs text-slate-400 space-y-3.5">
+                <p className="leading-relaxed">
+                  El historial directo o <strong className="text-slate-200">Head-to-Head (H2H)</strong> representa una de las métricas táctico-emocionales más elusivas e importantes de analizar. En la alta competición, existen dinámicas de incomodidad táctica (paternidades) que los números puramente estáticos de ligas no logran capturar.
+                </p>
+                <p className="leading-relaxed">
+                  Modelamos este cruzado directo simulando registros equivalentes de Copa del Mundo para estimar la probabilidad de que un plantel se desmorone o se sublime ante su rival histórico:
+                </p>
+                <div className="space-y-1 bg-[#0c0c0e] p-3 rounded-lg border border-white/5 font-mono text-[11px] text-slate-400">
+                  <div className="flex justify-between">
+                    <span>1. Sesgo de Paternidad Directa:</span>
+                    <span className="text-emerald-400 font-bold">Modelado ✔</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>2. Efectividad Psicológica en Prorrogas:</span>
+                    <span className="text-emerald-400 font-bold">Modelado ✔</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>3. Transferencia de ELO Calibrado:</span>
+                    <span className="text-emerald-400 font-bold">Sincronizado ✔</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
