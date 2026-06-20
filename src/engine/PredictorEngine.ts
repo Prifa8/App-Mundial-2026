@@ -1,4 +1,5 @@
-import { Team, MatchPredictionInput, MatchPredictionResult, ExactScoreProbability, ModelContribution, ShapValue } from '../types';
+import { Team, MatchPredictionInput, MatchPredictionResult, ExactScoreProbability, ModelContribution, ShapValue, TeamWC2026Stats } from '../types';
+import { WC_2026_REAL_RESULTS } from '../data/wc2026Results';
 
 /**
  * Calculador de Distribución de Poisson estándar estilo elo.mjs (PMF iterativo seguro)
@@ -111,6 +112,57 @@ export class PredictorEngine {
       t = Math.imul(t ^ (t >>> 15), t | 1);
       t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  public static getTeamWC2026Stats(teamId: string): TeamWC2026Stats {
+    let played = 0;
+    let gf = 0;
+    let gc = 0;
+    let xgFavor = 0;
+    let xgContra = 0;
+    let points = 0;
+
+    WC_2026_REAL_RESULTS.forEach(m => {
+      if (m.team1Id === teamId) {
+        played++;
+        gf += m.score1;
+        gc += m.score2;
+        xgFavor += m.xg1 !== undefined ? m.xg1 : 0;
+        xgContra += m.xg2 !== undefined ? m.xg2 : 0;
+        if (m.score1 > m.score2) points += 3;
+        else if (m.score1 === m.score2) points += 1;
+      } else if (m.team2Id === teamId) {
+        played++;
+        gf += m.score2;
+        gc += m.score1;
+        xgFavor += m.xg2 !== undefined ? m.xg2 : 0;
+        xgContra += m.xg1 !== undefined ? m.xg1 : 0;
+        if (m.score2 > m.score1) points += 3;
+        else if (m.score2 === m.score1) points += 1;
+      }
+    });
+
+    const gfAvg = played > 0 ? gf / played : 0;
+    const gcAvg = played > 0 ? gc / played : 0;
+    const xgFavorAvg = played > 0 ? xgFavor / played : 0;
+    const xgContraAvg = played > 0 ? xgContra / played : 0;
+    const forma = played > 0 ? points / played : 0;
+
+    return {
+      played,
+      gf,
+      gc,
+      xgFavor: parseFloat(xgFavor.toFixed(2)),
+      xgContra: parseFloat(xgContra.toFixed(2)),
+      gfAvg,
+      gcAvg,
+      xgFavorAvg,
+      xgContraAvg,
+      points,
+      forma,
+      diffGol: gf - gc,
+      diffXg: parseFloat((xgFavor - xgContra).toFixed(2))
     };
   }
 
@@ -311,6 +363,45 @@ export class PredictorEngine {
     // Incorporar todos los filtros e influencias en Expected Goals (xG) de manera simétrica
     let dynamicLambda = rawLambda * (teamA.offPower * teamB.defPower) * formWeightA * (ageModA / ageModB) * (expModA / expModB) * Math.max(0.9, mktModifier);
     let dynamicMu = rawMu * (teamB.offPower * teamA.defPower) * formWeightB * (ageModB / ageModA) * (expModB / expModA) / Math.max(0.9, mktModifier);
+
+    // --- CALIBRACIÓN EMPÍRICA MONTE CARLO (MUNDIAL 2026) ---
+    const statsA = PredictorEngine.getTeamWC2026Stats(teamA.id);
+    const statsB = PredictorEngine.getTeamWC2026Stats(teamB.id);
+
+    const defaultXGFavorA = teamA.offPower * teamB.defPower * 1.35;
+    const defaultXGContraA = teamB.offPower * teamA.defPower * 1.35;
+    const defaultXGFavorB = teamB.offPower * teamA.defPower * 1.35;
+    const defaultXGContraB = teamA.offPower * teamB.defPower * 1.35;
+
+    const xgFavorAvgA = statsA.played > 0 ? statsA.xgFavorAvg : defaultXGFavorA;
+    const xgContraAvgA = statsA.played > 0 ? statsA.xgContraAvg : defaultXGContraA;
+    const gfAvgA = statsA.played > 0 ? statsA.gfAvg : defaultXGFavorA;
+    const gcAvgA = statsA.played > 0 ? statsA.gcAvg : defaultXGContraA;
+    const formaA = statsA.played > 0 ? statsA.forma : (teamA.momentum - 0.5);
+
+    const xgFavorAvgB = statsB.played > 0 ? statsB.xgFavorAvg : defaultXGFavorB;
+    const xgContraAvgB = statsB.played > 0 ? statsB.xgContraAvg : defaultXGContraB;
+    const gfAvgB = statsB.played > 0 ? statsB.gfAvg : defaultXGFavorB;
+    const gcAvgB = statsB.played > 0 ? statsB.gcAvg : defaultXGContraB;
+    const formaB = statsB.played > 0 ? statsB.forma : (teamB.momentum - 0.5);
+
+    // 1. Fórmula Simple (Pesos: 50% xG favor, 30% xG contra rival, 15% goles favor, 5% forma)
+    const lambdaSimpleA = (0.50 * xgFavorAvgA) + (0.30 * xgContraAvgB) + (0.15 * gfAvgA) + (0.05 * formaA);
+    const lambdaSimpleB = (0.50 * xgFavorAvgB) + (0.30 * xgContraAvgA) + (0.15 * gfAvgB) + (0.05 * formaB);
+
+    // 2. Fórmula Completa con pesos del usuario (35% xG favor, 25% xG contra rival, 15% goles favor, 10% goles contra rival, 10% forma, 5% localía)
+    const homeAdvFactorA = isNeutral ? 0 : (teamA.type === 'club' ? 1.2 : 1.15); // localía
+    const lambdaFullA = (0.35 * xgFavorAvgA) + (0.25 * xgContraAvgB) + (0.15 * gfAvgA) + (0.10 * gcAvgB) + (0.10 * formaA) + (isNeutral ? 0 : 0.05 * homeAdvFactorA);
+    const lambdaFullB = (0.35 * xgFavorAvgB) + (0.25 * xgContraAvgA) + (0.15 * gfAvgB) + (0.10 * gcAvgA) + (0.10 * formaB);
+
+    // Mezcla de la fórmula de Monte Carlo del usuario con la teórica base
+    const numPlayedMax = Math.max(statsA.played, statsB.played);
+    const empiricalWeight = numPlayedMax > 0 ? Math.min(0.85, 0.40 + 0.15 * numPlayedMax) : 0;
+
+    if (empiricalWeight > 0) {
+      dynamicLambda = (1 - empiricalWeight) * dynamicLambda + empiricalWeight * lambdaFullA;
+      dynamicMu = (1 - empiricalWeight) * dynamicMu + empiricalWeight * lambdaFullB;
+    }
 
     // Límites de seguridad idénticos a elo.mjs cociente de cotas
     dynamicLambda = Math.max(0.3, Math.min(3.5, dynamicLambda));
@@ -902,7 +993,15 @@ export class PredictorEngine {
       simulatedHistA,
       simulatedHistB,
       advancedModels,
-      unusualFeatures
+      unusualFeatures,
+      monteCarloCustom: {
+        statsA,
+        statsB,
+        lambdaSimpleA,
+        lambdaSimpleB,
+        lambdaFullA,
+        lambdaFullB
+      }
     };
   }
 

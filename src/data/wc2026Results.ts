@@ -25,156 +25,149 @@ export let WC_2026_REAL_RESULTS: RealMatch[] = [
   {
     team1Id: 'mex', team2Id: 'rsa', score1: 2, score2: 0,
     date: '11 de junio, 2026', status: 'FT', group: 'Grupo A',
-    xg1: 1.45, xg2: 0.18, possession1: 61, possession2: 39,
+    xg1: 1.41, xg2: 0.07, possession1: 61, possession2: 39,
     shots1: 16, shots2: 3, shotsOnTarget1: 4, shotsOnTarget2: 2,
     corners1: 5, corners2: 2
   },
   {
     team1Id: 'kor', team2Id: 'cze', score1: 2, score2: 1,
     date: '11 de junio, 2026', status: 'FT', group: 'Grupo A',
-    xg1: 2.30, xg2: 0.83, possession1: 62, possession2: 38,
+    xg1: 1.84, xg2: 0.81, possession1: 62, possession2: 38,
     shots1: 15, shots2: 7, shotsOnTarget1: 6, shotsOnTarget2: 4,
     corners1: 6, corners2: 4
   },
   {
     team1Id: 'can', team2Id: 'bih', score1: 1, score2: 1,
     date: '12 de junio, 2026', status: 'FT', group: 'Grupo B',
-    xg1: 1.28, xg2: 0.95, possession1: 61, possession2: 39,
+    xg1: 1.25, xg2: 0.98, possession1: 61, possession2: 39,
     shots1: 13, shots2: 8, shotsOnTarget1: 4, shotsOnTarget2: 3,
     corners1: 4, corners2: 5
   },
   {
+    team1Id: 'usa', team2Id: 'par', score1: 4, score2: 1,
+    date: '12 de junio, 2026', status: 'FT', group: 'Grupo D',
+    xg1: 1.35, xg2: 0.47, possession1: 65, possession2: 35,
+    shots1: 16, shots2: 9, shotsOnTarget1: 6, shotsOnTarget2: 1,
+    corners1: 7, corners2: 3
+  },
+  {
     team1Id: 'qat', team2Id: 'sui', score1: 1, score2: 1,
     date: '13 de junio, 2026', status: 'FT', group: 'Grupo B',
-    xg1: 0.61, xg2: 3.01, possession1: 32, possession2: 68,
+    xg1: 0.76, xg2: 3.24, possession1: 32, possession2: 68,
     shots1: 6, shots2: 26, shotsOnTarget1: 3, shotsOnTarget2: 7,
     corners1: 2, corners2: 8
   },
   {
     team1Id: 'bra', team2Id: 'mar', score1: 1, score2: 1,
     date: '13 de junio, 2026', status: 'FT', group: 'Grupo C',
-    xg1: 1.29, xg2: 1.33, possession1: 51, possession2: 49,
+    xg1: 1.23, xg2: 1.53, possession1: 51, possession2: 49,
     shots1: 12, shots2: 14, shotsOnTarget1: 5, shotsOnTarget2: 3,
     corners1: 5, corners2: 4
   },
   {
     team1Id: 'hai', team2Id: 'sco', score1: 0, score2: 1,
     date: '13 de junio, 2026', status: 'FT', group: 'Grupo C',
-    xg1: 1.06, xg2: 1.05, possession1: 54, possession2: 46,
+    xg1: 1.21, xg2: 1.05, possession1: 54, possession2: 46,
     shots1: 15, shots2: 9, shotsOnTarget1: 2, shotsOnTarget2: 2,
     corners1: 2, corners2: 6
   },
   {
-    team1Id: 'usa', team2Id: 'par', score1: 4, score2: 1,
-    date: '12 de junio, 2026', status: 'FT', group: 'Grupo D',
-    xg1: 1.66, xg2: 0.58, possession1: 65, possession2: 35,
-    shots1: 16, shots2: 9, shotsOnTarget1: 6, shotsOnTarget2: 1,
-    corners1: 7, corners2: 3
-  },
-  {
     team1Id: 'aus', team2Id: 'tur', score1: 2, score2: 0,
-    date: '14 de junio, 2026', status: 'FT', group: 'Grupo D',
-    xg1: 1.16, xg2: 1.74, possession1: 28, possession2: 72,
+    date: '13 de junio, 2026', status: 'FT', group: 'Grupo D',
+    xg1: 0.77, xg2: 1.33, possession1: 28, possession2: 72,
     shots1: 9, shots2: 30, shotsOnTarget1: 4, shotsOnTarget2: 8,
     corners1: 4, corners2: 5
   },
   {
     team1Id: 'ger', team2Id: 'cuw', score1: 7, score2: 1,
     date: '14 de junio, 2026', status: 'FT', group: 'Grupo E',
-    xg1: 4.07, xg2: 0.50, possession1: 65, possession2: 35,
+    xg1: 4.22, xg2: 0.41, possession1: 65, possession2: 35,
     shots1: 26, shots2: 8, shotsOnTarget1: 12, shotsOnTarget2: 2,
     corners1: 11, corners2: 1
   },
   {
-    team1Id: 'civ', team2Id: 'ecu', score1: 1, score2: 0,
-    date: '14 de junio, 2026', status: 'FT', group: 'Grupo E',
-    xg1: 1.52, xg2: 0.97, possession1: 48, possession2: 52,
-    shots1: 15, shots2: 12, shotsOnTarget1: 4, shotsOnTarget2: 1,
-    corners1: 4, corners2: 4
-  },
-  {
     team1Id: 'ned', team2Id: 'jpn', score1: 2, score2: 2,
-    date: '14 de junio, 2026', status: 'FT', group: 'Grupo F',
-    xg1: 1.07, xg2: 0.78, possession1: 60, possession2: 40,
+    date: '14 de junio, 2026', status: 'FT', group: 'Grupo H',
+    xg1: 0.78, xg2: 0.59, possession1: 60, possession2: 40,
     shots1: 10, shots2: 10, shotsOnTarget1: 6, shotsOnTarget2: 3,
     corners1: 5, corners2: 6
   },
   {
+    team1Id: 'civ', team2Id: 'ecu', score1: 1, score2: 0,
+    date: '14 de junio, 2026', status: 'FT', group: 'Grupo I',
+    xg1: 1.68, xg2: 1.03, possession1: 48, possession2: 52,
+    shots1: 15, shots2: 12, shotsOnTarget1: 4, shotsOnTarget2: 1,
+    corners1: 4, corners2: 4
+  },
+  {
     team1Id: 'swe', team2Id: 'tun', score1: 5, score2: 1,
-    date: '15 de junio, 2026', status: 'FT', group: 'Grupo F',
-    xg1: 1.46, xg2: 0.40, possession1: 49, possession2: 51,
+    date: '14 de junio, 2026', status: 'FT', group: 'Grupo J',
+    xg1: 1.36, xg2: 0.28, possession1: 49, possession2: 51,
     shots1: 13, shots2: 6, shotsOnTarget1: 7, shotsOnTarget2: 2,
     corners1: 6, corners2: 3
   },
   {
-    team1Id: 'bel', team2Id: 'egy', score1: 1, score2: 1,
-    date: '15 de junio, 2026', status: 'FT', group: 'Grupo G',
-    xg1: 1.35, xg2: 1.09, possession1: 54, possession2: 46,
-    shots1: 15, shots2: 14, shotsOnTarget1: 3, shotsOnTarget2: 3,
-    corners1: 5, corners2: 4
-  },
-  {
-    team1Id: 'irn', team2Id: 'nzl', score1: 2, score2: 2,
-    date: '16 de junio, 2026', status: 'FT', group: 'Grupo G',
-    xg1: 1.57, xg2: 1.32, possession1: 49, possession2: 51,
-    shots1: 17, shots2: 14, shotsOnTarget1: 4, shotsOnTarget2: 8,
-    corners1: 4, corners2: 3
-  },
-  {
     team1Id: 'esp', team2Id: 'cpv', score1: 0, score2: 0,
-    date: '15 de junio, 2026', status: 'FT', group: 'Grupo H',
-    xg1: 2.26, xg2: 0.25, possession1: 74, possession2: 26,
+    date: '15 de junio, 2026', status: 'FT', group: 'Grupo I',
+    xg1: 2.29, xg2: 0.30, possession1: 74, possession2: 26,
     shots1: 27, shots2: 6, shotsOnTarget1: 7, shotsOnTarget2: 1,
     corners1: 9, corners2: 1
   },
   {
-    team1Id: 'ksa', team2Id: 'uru', score1: 1, score2: 1,
+    team1Id: 'bel', team2Id: 'egy', score1: 1, score2: 1,
     date: '15 de junio, 2026', status: 'FT', group: 'Grupo H',
-    xg1: 0.70, xg2: 1.97, possession1: 33, possession2: 67,
+    xg1: 1.35, xg2: 1.08, possession1: 54, possession2: 46,
+    shots1: 15, shots2: 14, shotsOnTarget1: 3, shotsOnTarget2: 3,
+    corners1: 5, corners2: 4
+  },
+  {
+    team1Id: 'ksa', team2Id: 'uru', score1: 1, score2: 1,
+    date: '15 de junio, 2026', status: 'FT', group: 'Grupo F',
+    xg1: 0.99, xg2: 1.54, possession1: 33, possession2: 67,
     shots1: 7, shots2: 27, shotsOnTarget1: 3, shotsOnTarget2: 10,
     corners1: 3, corners2: 7
   },
   {
+    team1Id: 'irn', team2Id: 'nzl', score1: 2, score2: 2,
+    date: '15 de junio, 2026', status: 'FT', group: 'Grupo G',
+    xg1: 1.50, xg2: 1.24, possession1: 49, possession2: 51,
+    shots1: 17, shots2: 14, shotsOnTarget1: 4, shotsOnTarget2: 8,
+    corners1: 4, corners2: 3
+  },
+  {
     team1Id: 'fra', team2Id: 'sen', score1: 3, score2: 1,
-    date: '16 de junio, 2026', status: 'FT', group: 'Grupo I',
-    xg1: 1.75, xg2: 0.54, possession1: 53, possession2: 47,
+    date: '16 de junio, 2026', status: 'FT', group: 'Grupo J',
+    xg1: 1.79, xg2: 0.56, possession1: 53, possession2: 47,
     shots1: 11, shots2: 6, shotsOnTarget1: 8, shotsOnTarget2: 2,
     corners1: 6, corners2: 4
   },
   {
     team1Id: 'irq', team2Id: 'nor', score1: 1, score2: 4,
-    date: '16 de junio, 2026', status: 'FT', group: 'Grupo I',
-    xg1: 0.82, xg2: 2.30, possession1: 39, possession2: 61,
+    date: '16 de junio, 2026', status: 'FT', group: 'Grupo E',
+    xg1: 0.77, xg2: 2.53, possession1: 39, possession2: 61,
     shots1: 11, shots2: 12, shotsOnTarget1: 1, shotsOnTarget2: 5,
     corners1: 7, corners2: 2
   },
   {
     team1Id: 'arg', team2Id: 'alg', score1: 3, score2: 0,
-    date: '17 de junio, 2026', status: 'FT', group: 'Grupo J',
-    xg1: 1.34, xg2: 0.38, possession1: 48, possession2: 52,
+    date: '16 de junio, 2026', status: 'FT', group: 'Grupo K',
+    xg1: 1.23, xg2: 0.31, possession1: 48, possession2: 52,
     shots1: 10, shots2: 7, shotsOnTarget1: 6, shotsOnTarget2: 0,
     corners1: 8, corners2: 3
   },
   {
     team1Id: 'aut', team2Id: 'jor', score1: 3, score2: 1,
-    date: '17 de junio, 2026', status: 'FT', group: 'Grupo J',
-    xg1: 1.60, xg2: 0.72, possession1: 63, possession2: 37,
+    date: '16 de junio, 2026', status: 'FT', group: 'Grupo F',
+    xg1: 1.66, xg2: 0.53, possession1: 63, possession2: 37,
     shots1: 11, shots2: 11, shotsOnTarget1: 4, shotsOnTarget2: 4,
     corners1: 5, corners2: 3
   },
   {
     team1Id: 'por', team2Id: 'cod', score1: 1, score2: 1,
     date: '17 de junio, 2026', status: 'FT', group: 'Grupo K',
-    xg1: 0.75, xg2: 0.84, possession1: 75, possession2: 25,
+    xg1: 0.64, xg2: 0.82, possession1: 75, possession2: 25,
     shots1: 7, shots2: 8, shotsOnTarget1: 1, shotsOnTarget2: 2,
     corners1: 4, corners2: 3
-  },
-  {
-    team1Id: 'uzb', team2Id: 'col', score1: 1, score2: 3,
-    date: '18 de junio, 2026', status: 'FT', group: 'Grupo K',
-    xg1: 1.16, xg2: 1.62, possession1: 45, possession2: 55,
-    shots1: 11, shots2: 15, shotsOnTarget1: 4, shotsOnTarget2: 6,
-    corners1: 3, corners2: 5
   },
   {
     team1Id: 'eng', team2Id: 'cro', score1: 4, score2: 2,
@@ -186,9 +179,58 @@ export let WC_2026_REAL_RESULTS: RealMatch[] = [
   {
     team1Id: 'gha', team2Id: 'pan', score1: 1, score2: 0,
     date: '17 de junio, 2026', status: 'FT', group: 'Grupo L',
-    xg1: 1.25, xg2: 0.75, possession1: 44, possession2: 56,
+    xg1: 1.31, xg2: 0.75, possession1: 44, possession2: 56,
     shots1: 7, shots2: 11, shotsOnTarget1: 2, shotsOnTarget2: 3,
     corners1: 3, corners2: 5
+  },
+  {
+    team1Id: 'uzb', team2Id: 'col', score1: 1, score2: 3,
+    date: '17 de junio, 2026', status: 'FT', group: 'Grupo K',
+    xg1: 1.16, xg2: 1.62, possession1: 45, possession2: 55,
+    shots1: 11, shots2: 15, shotsOnTarget1: 4, shotsOnTarget2: 6,
+    corners1: 3, corners2: 5
+  },
+  {
+    team1Id: 'cze', team2Id: 'rsa', score1: 1, score2: 1,
+    date: '18 de junio, 2026', status: 'FT', group: 'Grupo A',
+    xg1: 1.02, xg2: 1.39, possession1: 46, possession2: 54,
+    shots1: 10, shots2: 13, shotsOnTarget1: 3, shotsOnTarget2: 4,
+    corners1: 4, corners2: 5
+  },
+  {
+    team1Id: 'sui', team2Id: 'bih', score1: 4, score2: 1,
+    date: '18 de junio, 2026', status: 'FT', group: 'Grupo B',
+    xg1: 2.06, xg2: 0.23, possession1: 64, possession2: 36,
+    shots1: 18, shots2: 5, shotsOnTarget1: 8, shotsOnTarget2: 2,
+    corners1: 7, corners2: 2
+  },
+  {
+    team1Id: 'can', team2Id: 'qat', score1: 6, score2: 0,
+    date: '18 de junio, 2026', status: 'FT', group: 'Grupo B',
+    xg1: 4.75, xg2: 0.18, possession1: 68, possession2: 32,
+    shots1: 24, shots2: 4, shotsOnTarget1: 11, shotsOnTarget2: 1,
+    corners1: 9, corners2: 2
+  },
+  {
+    team1Id: 'mex', team2Id: 'kor', score1: 1, score2: 0,
+    date: '19 de junio, 2026', status: 'FT', group: 'Grupo A',
+    xg1: 0.48, xg2: 0.69, possession1: 45, possession2: 55,
+    shots1: 8, shots2: 12, shotsOnTarget1: 3, shotsOnTarget2: 4,
+    corners1: 3, corners2: 5
+  },
+  {
+    team1Id: 'usa', team2Id: 'aus', score1: 2, score2: 0,
+    date: '19 de junio, 2026', status: 'FT', group: 'Grupo D',
+    xg1: 1.50, xg2: 0.45, possession1: 58, possession2: 42,
+    shots1: 14, shots2: 8, shotsOnTarget1: 5, shotsOnTarget2: 2,
+    corners1: 6, corners2: 4
+  },
+  {
+    team1Id: 'sco', team2Id: 'mar', score1: 0, score2: 1,
+    date: '19 de junio, 2026', status: 'FT', group: 'Grupo C',
+    xg1: 0.65, xg2: 1.45, possession1: 41, possession2: 59,
+    shots1: 9, shots2: 15, shotsOnTarget1: 2, shotsOnTarget2: 5,
+    corners1: 3, corners2: 6
   }
 ];
 
@@ -256,7 +298,6 @@ export function computeCalibratedElos(baseTeams: Team[], results: RealMatch[] = 
     const K = BASE_K * recencyWeight;
 
     // 2. PONDERAR CALIDAD DE LOS RIVALES
-    // No es lo mismo ganar a un equipo grande (factor > 1.0) que a uno que viene de abajo (factor < 1.0)
     const oppQuality1 = getOpponentQualityFactor(t2.elo, t2.fifaRanking);
     const oppQuality2 = getOpponentQualityFactor(t1.elo, t1.fifaRanking);
 
@@ -269,8 +310,6 @@ export function computeCalibratedElos(baseTeams: Team[], results: RealMatch[] = 
     const delta = K * mult * (score1 - exp1);
 
     // ELO transfer adjusted symmetrically by opponent quality:
-    // Better opponent quality multipliers amplify positive delta (reward) or buffer negative delta (less penalty).
-    // Lower opponent quality multipliers dampen positive delta (less reward) or amplify negative delta (more penalty).
     const delta1 = delta * (delta > 0 ? oppQuality1 : (1 / oppQuality1));
     const delta2 = -delta * ((-delta) > 0 ? oppQuality2 : (1 / oppQuality2));
 
@@ -318,7 +357,7 @@ export function computeCalibratedElos(baseTeams: Team[], results: RealMatch[] = 
       // Atajadas del Portero (Goalkeeper Saves)
       const saves1 = Math.max(0, sOnTarget2 - match.score2);
       const saves2 = Math.max(0, sOnTarget1 - match.score1);
-      const savesAdv1 = saves1 - predSOT2 * 0.25; // atajadas superiores a la expectativa
+      const savesAdv1 = saves1 - predSOT2 * 0.25;
       const savesAdv2 = saves2 - predSOT1 * 0.25;
 
       // Tasa de acierto / eficiencia del tiro
@@ -341,8 +380,7 @@ export function computeCalibratedElos(baseTeams: Team[], results: RealMatch[] = 
       t1.offPower = parseFloat(Math.max(0.60, Math.min(3.40, t1.offPower + (xgErr1 * 0.7 + sotErr1 * 0.15 + accDiff * 0.15) * lrOff1)).toFixed(3));
       t2.offPower = parseFloat(Math.max(0.60, Math.min(3.40, t2.offPower + (xgErr2 * 0.7 + sotErr2 * 0.15 - accDiff * 0.15) * lrOff2)).toFixed(3));
 
-      // Calibrar defensiva con goles encajados, xG concedido y atajadas sobresalientes
-      // Recordar: defPower más bajo es mejor
+      // Calibrar defensiva con goles encajados, xG de rival y atajadas
       const scoreErr1 = match.score2 - predXG2;
       const scoreErr2 = match.score1 - predXG1;
       t1.defPower = parseFloat(Math.max(0.25, Math.min(1.75, t1.defPower + (scoreErr1 * 0.6 + xgErr2 * 0.2 - savesAdv1 * 0.1) * lrDef1)).toFixed(3));
@@ -358,11 +396,8 @@ export function computeCalibratedElos(baseTeams: Team[], results: RealMatch[] = 
   }
 
   // 3. REGULARIZACIÓN DE ANCLAJE AL RANKING FIFA
-  // Utilizar el Ranking FIFA como ancla prioritario para evitar desviaciones desproporcionadas en el ELO
   for (const t of teamsMap.values()) {
-    // Calculamos el ELO nominal recomendado de la FIFA para este ranking (ej. Rank 1 = ~1920, Rank 30 = ~1711)
     const fifaAnchorElo = 1920 - (t.fifaRanking - 1) * 7.2;
-    // Tirón de anclaje con stiffness de 15%. Mantiene la precisión empírica pero anclada a la realidad histórica
     const anchorStrength = 0.15;
     t.elo = Math.round(t.elo * (1 - anchorStrength) + fifaAnchorElo * anchorStrength);
   }

@@ -154,6 +154,30 @@ export interface MatchPredictionResult {
     homeContinentAdvantageA: number; // multiplier or elo bonus
     homeContinentAdvantageB: number;
   };
+  monteCarloCustom?: {
+    statsA: TeamWC2026Stats;
+    statsB: TeamWC2026Stats;
+    lambdaSimpleA: number;
+    lambdaSimpleB: number;
+    lambdaFullA: number;
+    lambdaFullB: number;
+  };
+}
+
+export interface TeamWC2026Stats {
+  played: number;
+  gf: number;
+  gc: number;
+  xgFavor: number;
+  xgContra: number;
+  gfAvg: number;
+  gcAvg: number;
+  xgFavorAvg: number;
+  xgContraAvg: number;
+  points: number;
+  forma: number;
+  diffGol: number;
+  diffXg: number;
 }
 
 // Historial de validación para partidos reales
