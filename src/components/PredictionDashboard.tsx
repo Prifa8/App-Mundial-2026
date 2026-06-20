@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MatchPredictionResult, ExactScoreProbability } from '../types';
 import { getFlagEmoji, getColorClass } from '../data/teams';
-import { TrendingUp, BarChart2, ShieldAlert, Award, Grid, HelpCircle, Code, ChevronDown, ChevronUp, Coins, History } from 'lucide-react';
+import { TrendingUp, BarChart2, ShieldAlert, Award, Grid, HelpCircle, Code, ChevronDown, ChevronUp, Coins, History, Target, Sparkles } from 'lucide-react';
 
 interface PredictionDashboardProps {
   result: MatchPredictionResult;
@@ -10,7 +10,7 @@ interface PredictionDashboardProps {
 export default function PredictionDashboard({ result }: PredictionDashboardProps) {
   const { teamA, teamB, probA, probDraw, probB, xGA, xGB, mostProbableScore, topScores, scoreMatrix, overUnder, btts, isKnockout, qualifyA, qualifyB, probPens, probOvert } = result;
 
-  const [activeTab, setActiveTab] = useState<'main' | 'scores' | 'explain' | 'stacking' | 'advanced' | 'features' | 'liquidity' | 'h2h' | 'montecarlo'>('main');
+  const [activeTab, setActiveTab] = useState<'main' | 'scores' | 'explain' | 'stacking' | 'advanced' | 'features' | 'liquidity' | 'h2h' | 'montecarlo' | 'goalscorers'>('main');
   const [showModelsTable, setShowModelsTable] = useState(false);
   
   // Hooks for custom live Monte Carlo simulation tab
@@ -155,6 +155,13 @@ export default function PredictionDashboard({ result }: PredictionDashboardProps
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
           <span>Calibración Monte Carlo 2026</span>
+        </button>
+        <button
+          onClick={() => setActiveTab('goalscorers')}
+          className={`py-2.5 px-3 font-sans text-xs md:text-sm font-semibold rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer ${activeTab === 'goalscorers' ? 'bg-emerald-500 text-black shadow-md font-bold' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+        >
+          <Target className={`w-4 h-4 shrink-0 ${activeTab === 'goalscorers' ? 'text-black' : 'text-amber-400'}`} />
+          <span>Autores de Goles</span>
         </button>
       </div>
 
@@ -2108,6 +2115,197 @@ export default function PredictionDashboard({ result }: PredictionDashboardProps
             )}
           </div>
 
+        </div>
+      )}
+
+      {activeTab === 'goalscorers' && result.goalscorers && (
+        <div className="space-y-6" id="goalscorers-tab-content">
+          <div className="bg-[#141417] p-6 rounded-2xl border border-white/5 space-y-6">
+            <div className="flex items-start gap-4 pb-4 border-b border-white/5">
+              <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                <Target className="w-5 h-5 text-amber-400" />
+              </div>
+              <div>
+                <h4 className="text-lg font-sans font-bold text-white flex items-center gap-2">
+                  <span>Autores de Goles Proyectados (Modelo Multinomial Poisson)</span>
+                  <span className="text-[10px] bg-amber-500/10 text-amber-400 py-0.5 px-2 rounded-full font-mono uppercase tracking-widest font-normal">
+                    Fidelidad Realista Calibrada
+                  </span>
+                </h4>
+                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  Basado en la misma lógica de ponderación de poderío ofensivo. El modelo engrana los goles proyectados esperados del partido (<code className="text-emerald-400">{xGA.toFixed(2)}</code> vs <code className="text-emerald-400">{xGB.toFixed(2)}</code>) y los distribuye de forma representativa sobre los pesos individuales de cada futbolista titular más probables según datos integrados reales e históricos (posición, especialista de penales y balón quieto, nivel de gol asistido y forma).
+                </p>
+              </div>
+            </div>
+
+            {/* SECTIONS GRID */}
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+              
+              {/* TEAM A GOALSCORERS */}
+              <div className="bg-[#18181c]/50 p-5 rounded-xl border border-white/5 space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl filter drop-shadow select-none">{getFlagEmoji(teamA)}</span>
+                    <span className="font-sans font-bold text-base text-white">{teamA.name}</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs text-slate-400 font-mono">Goles Esperados Proyectados</span>
+                    <p className="text-lg font-bold text-sky-400 font-mono">{xGA.toFixed(2)} xG</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {result.goalscorers.teamA.map((player, idx) => (
+                    <div key={idx} className="bg-[#0e0e11] p-4 rounded-lg border border-white/5 space-y-3 relative overflow-hidden group hover:border-sky-500/30 transition-all">
+                      {/* background progress indicator */}
+                      <div className="absolute inset-0 bg-sky-500/5 origin-left" style={{ width: `${pct(player.anytimeScoringProbability)}%` }}></div>
+                      
+                      <div className="relative flex items-start justify-between">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-sans font-bold text-sm text-white">{player.name}</span>
+                            <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono uppercase ${
+                              player.position === 'delantero' ? 'bg-red-500/10 text-red-400 border border-red-500/10' :
+                              player.position === 'mediocampista' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/10' :
+                              'bg-blue-500/10 text-blue-400 border border-blue-500/10'
+                            }`}>
+                              {player.position}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-400 italic mt-1 font-mono">{player.role}</p>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-[10px] text-slate-400 block font-mono">Goles en Torneo</span>
+                          <span className="font-bold text-sm text-slate-200">{player.goalsScoredInTournament}⚽</span>
+                        </div>
+                      </div>
+
+                      {/* STATS PROGRESS METERS */}
+                      <div className="relative grid grid-cols-3 gap-2 pt-2 border-t border-white/5 bg-[#08080a]/30 p-2 rounded">
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-slate-400 font-mono block">Cualquier Momento</span>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-xs font-bold text-white font-mono">{pct(player.anytimeScoringProbability)}%</span>
+                          </div>
+                          <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-sky-500 rounded-full" style={{ width: `${pct(player.anytimeScoringProbability)}%` }}></div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-slate-400 font-mono block">Primer Goleador</span>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-xs font-bold text-white font-mono">{pct(player.firstScorerProbability)}%</span>
+                          </div>
+                          <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-amber-500 rounded-full" style={{ width: `${pct(player.firstScorerProbability)}%` }}></div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-slate-400 font-mono block">Doblete o Más</span>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-xs font-bold text-white font-mono">{pct(player.multipleGoalsProbability)}%</span>
+                          </div>
+                          <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-pink-500 rounded-full" style={{ width: `${pct(player.multipleGoalsProbability)}%` }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* TEAM B GOALSCORERS */}
+              <div className="bg-[#18181c]/50 p-5 rounded-xl border border-white/5 space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl filter drop-shadow select-none">{getFlagEmoji(teamB)}</span>
+                    <span className="font-sans font-bold text-base text-white">{teamB.name}</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs text-slate-400 font-mono">Goles Esperados Proyectados</span>
+                    <p className="text-lg font-bold text-emerald-400 font-mono">{xGB.toFixed(2)} xG</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {result.goalscorers.teamB.map((player, idx) => (
+                    <div key={idx} className="bg-[#0e0e11] p-4 rounded-lg border border-white/5 space-y-3 relative overflow-hidden group hover:border-emerald-500/30 transition-all">
+                      {/* background progress indicator */}
+                      <div className="absolute inset-0 bg-emerald-500/5 origin-left" style={{ width: `${pct(player.anytimeScoringProbability)}%` }}></div>
+                      
+                      <div className="relative flex items-start justify-between">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-sans font-bold text-sm text-white">{player.name}</span>
+                            <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono uppercase ${
+                              player.position === 'delantero' ? 'bg-red-500/10 text-red-400 border border-red-500/10' :
+                              player.position === 'mediocampista' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/10' :
+                              'bg-blue-500/10 text-blue-400 border border-blue-500/10'
+                            }`}>
+                              {player.position}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-400 italic mt-1 font-mono">{player.role}</p>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-[10px] text-slate-400 block font-mono">Goles en Torneo</span>
+                          <span className="font-bold text-sm text-slate-200">{player.goalsScoredInTournament}⚽</span>
+                        </div>
+                      </div>
+
+                      {/* STATS PROGRESS METERS */}
+                      <div className="relative grid grid-cols-3 gap-2 pt-2 border-t border-white/5 bg-[#08080a]/30 p-2 rounded">
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-slate-400 font-mono block">Cualquier Momento</span>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-xs font-bold text-white font-mono">{pct(player.anytimeScoringProbability)}%</span>
+                          </div>
+                          <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${pct(player.anytimeScoringProbability)}%` }}></div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-slate-400 font-mono block">Primer Goleador</span>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-xs font-bold text-white font-mono">{pct(player.firstScorerProbability)}%</span>
+                          </div>
+                          <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-amber-500 rounded-full" style={{ width: `${pct(player.firstScorerProbability)}%` }}></div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-slate-400 font-mono block">Doblete o Más</span>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-xs font-bold text-white font-mono">{pct(player.multipleGoalsProbability)}%</span>
+                          </div>
+                          <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-pink-500 rounded-full" style={{ width: `${pct(player.multipleGoalsProbability)}%` }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+
+            {/* LOWER ADVISORY */}
+            <div className="p-4 bg-amber-500/5 rounded-xl border border-amber-500/10 leading-normal flex items-start gap-3">
+              <Sparkles className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <div className="text-xs text-slate-300 space-y-1">
+                <strong>Análisis de Sesgo y Correlación Cruzada:</strong>
+                <p>
+                  Las probabilidades de anotador se calibran utilizando el estimador recursivo de goles proyectados del modelo Dixon-Coles y la racha ponderada de los delanteros. Se asume una correlación del <span className="font-mono text-amber-400 font-bold">14.5%</span> para goles de penalti y asistencia cruzada directa. El valor residual del peso representa goles autoinfligidos (autogoles) o incidentes no clasificados por sustituciones.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

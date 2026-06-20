@@ -162,6 +162,21 @@ export interface MatchPredictionResult {
     lambdaFullA: number;
     lambdaFullB: number;
   };
+  goalscorers?: {
+    teamA: GoalscorerPrediction[];
+    teamB: GoalscorerPrediction[];
+  };
+}
+
+export interface GoalscorerPrediction {
+  name: string;
+  position: 'delantero' | 'mediocampista' | 'defensor';
+  goalsScoredInTournament: number;
+  anytimeScoringProbability: number;
+  firstScorerProbability: number;
+  multipleGoalsProbability: number;
+  role: string;
+  weight: number;
 }
 
 export interface TeamWC2026Stats {
