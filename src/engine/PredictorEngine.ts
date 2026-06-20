@@ -1223,11 +1223,11 @@ export class PredictorEngine {
     
     if (id === 'arg') {
       players = [
-        { name: 'Lionel Messi', position: 'delantero', role: 'Penales y Tiros Libres | Segundo Delantero', weight: 0.35 },
-        { name: 'Lautaro Martínez', position: 'delantero', role: 'Centrodelantero | Rematador de área', weight: 0.25 },
-        { name: 'Julián Álvarez', position: 'delantero', role: 'Extremo derecho / Presión alta', weight: 0.20 },
+        { name: 'Lionel Messi', position: 'delantero', role: 'Penales y Tiros Libres | Goleador Leyenda (Hat-trick vs Argelia)', weight: 0.45 },
+        { name: 'Lautaro Martínez', position: 'delantero', role: 'Centrodelantero | Rematador de área', weight: 0.20 },
+        { name: 'Julián Álvarez', position: 'delantero', role: 'Extremo derecho / Presión alta', weight: 0.16 },
         { name: 'Alexis Mac Allister', position: 'mediocampista', role: 'Volante mixto | Llegador de segunda línea', weight: 0.08 },
-        { name: 'Rodrigo De Paul', position: 'mediocampista', role: 'Volante dinámico | Disparador', weight: 0.04 },
+        { name: 'Rodrigo De Paul', position: 'mediocampista', role: 'Volante dinámico | Disparador', weight: 0.08 },
         { name: 'Cristian Romero', position: 'defensor', role: 'Defensa | Cabezazo ofensivo en corners', weight: 0.03 }
       ];
     } else if (id === 'col') {
@@ -1236,25 +1236,25 @@ export class PredictorEngine {
         { name: 'Jhon Durán', position: 'delantero', role: 'Centrodelantero de potencia física', weight: 0.26 },
         { name: 'James Rodríguez', position: 'mediocampista', role: 'Penales, tiros de esquina y libres', weight: 0.20 },
         { name: 'Jhon Arias', position: 'mediocampista', role: 'Extremo veloz', weight: 0.10 },
-        { name: 'Richard Ríos', position: 'mediocampista', role: 'Remates lejanos sorpresa', weight: 0.05 },
+        { name: 'Richard Ríos', position: 'mediocampista', role: 'Remates lejanos sorpresa', weight: 0.09 },
         { name: 'Davinson Sánchez', position: 'defensor', role: 'Juego aéreo ofensivo destacado', weight: 0.03 }
       ];
     } else if (id === 'uru') {
       players = [
         { name: 'Darwin Núñez', position: 'delantero', role: 'Centrodelantero potente y definidor', weight: 0.35 },
-        { name: 'Federico Valverde', position: 'mediocampista', role: 'Cañonazo de media distancia', weight: 0.20 },
+        { name: 'Federico Valverde', position: 'mediocampista', role: 'Cañonazo de media distancia', weight: 0.22 },
         { name: 'Facundo Pellistri', position: 'delantero', role: 'Extremo de zancada rápida', weight: 0.15 },
         { name: 'Maximiliano Araújo', position: 'mediocampista', role: 'Volante de ataque incisivo', weight: 0.12 },
-        { name: 'Giorgian de Arrascaeta', position: 'mediocampista', role: 'Volante creativo con llegada', weight: 0.10 },
-        { name: 'José María Giménez', position: 'defensor', role: 'Zaguero de gran remate aéreo', weight: 0.03 }
+        { name: 'Giorgian de Arrascaeta', position: 'mediocampista', role: 'Volante creativo con llegada', weight: 0.11 },
+        { name: 'José María Giménez', position: 'defensor', role: 'Zaguero de gran remate aéreo', weight: 0.05 }
       ];
     } else if (id === 'bra') {
       players = [
-        { name: 'Vinicius Junior', position: 'delantero', role: 'Extremo izquierdo de gran regate', weight: 0.32 },
+        { name: 'Vinicius Junior', position: 'delantero', role: 'Extremo izquierdo de gran regate | Goleador vs Marruecos', weight: 0.35 },
         { name: 'Rodrygo Goes', position: 'delantero', role: 'Atacante multifuncional y técnico', weight: 0.25 },
         { name: 'Raphinha', position: 'delantero', role: 'Tiros libres, penales y extremos rápidos', weight: 0.20 },
         { name: 'Lucas Paquetá', position: 'mediocampista', role: 'Volante mixto armador', weight: 0.10 },
-        { name: 'Bruno Guimarães', position: 'mediocampista', role: 'Llegada sorpresiva lejana', weight: 0.05 },
+        { name: 'Bruno Guimarães', position: 'mediocampista', role: 'Llegada sorpresiva lejana', weight: 0.07 },
         { name: 'Gabriel Magalhães', position: 'defensor', role: 'Central muy peligroso en corners', weight: 0.03 }
       ];
     } else if (id === 'esp') {
@@ -1262,36 +1262,36 @@ export class PredictorEngine {
         { name: 'Lamine Yamal', position: 'delantero', role: 'Joya regateadora y de tiro con rosca', weight: 0.28 },
         { name: 'Álvaro Morata', position: 'delantero', role: 'Rematador y cabeceador de área', weight: 0.26 },
         { name: 'Nico Williams', position: 'delantero', role: 'Extremo veloz de ruptura rápida', weight: 0.22 },
-        { name: 'Dani Olmo', position: 'mediocampista', role: 'Mediapunta creativo goleador', weight: 0.12 },
+        { name: 'Dani Olmo', position: 'mediocampista', role: 'Mediapunta creativo goleador', weight: 0.15 },
         { name: 'Pedri', position: 'mediocampista', role: 'Interior asociativo con llegada', weight: 0.05 },
         { name: 'Rodri', position: 'mediocampista', role: 'Pivote defensivo rematador | Penales', weight: 0.04 }
       ];
     } else if (id === 'fra') {
       players = [
-        { name: 'Kylian Mbappé', position: 'delantero', role: 'Delantero estelar | Penales y tiros libres', weight: 0.42 },
-        { name: 'Marcus Thuram', position: 'delantero', role: 'Delantero centro potente y pivot', weight: 0.22 },
-        { name: 'Ousmane Dembélé', position: 'delantero', role: 'Extremo encarador veloz', weight: 0.15 },
+        { name: 'Kylian Mbappé', position: 'delantero', role: 'Delantero estelar | Especialista de penales (Doblete vs Senegal)', weight: 0.42 },
+        { name: 'Bradley Barcola', position: 'delantero', role: 'Extremo veloz con gran definición | Goleador vs Senegal', weight: 0.26 },
+        { name: 'Marcus Thuram', position: 'delantero', role: 'Delantero centro potente y pivot', weight: 0.14 },
         { name: 'Antoine Griezmann', position: 'mediocampista', role: 'Balón quieto e inteligencia de área', weight: 0.12 },
         { name: 'Eduardo Camavinga', position: 'mediocampista', role: 'Volante dinámico recuperador', weight: 0.04 },
         { name: 'William Saliba', position: 'defensor', role: 'Zaguero de gran juego aéreo ofensivo', weight: 0.02 }
       ];
     } else if (id === 'eng') {
       players = [
-        { name: 'Harry Kane', position: 'delantero', role: 'Nueve referencia goleadora | Penales', weight: 0.38 },
-        { name: 'Jude Bellingham', position: 'mediocampista', role: 'Volante ofensivo que pisa el área', weight: 0.22 },
-        { name: 'Bukayo Saka', position: 'delantero', role: 'Extremo de gran diagonal interior', weight: 0.16 },
-        { name: 'Phil Foden', position: 'delantero', role: 'Media punta técnico disparo corto', weight: 0.12 },
-        { name: 'Cole Palmer', position: 'delantero', role: 'Zurdazo fantástico y penales', weight: 0.08 },
+        { name: 'Harry Kane', position: 'delantero', role: 'Nueve referencia goleadora | Penales (Doblete vs Croacia)', weight: 0.38 },
+        { name: 'Jude Bellingham', position: 'mediocampista', role: 'Volante ofensivo que pisa el área | Goleador vs Croacia', weight: 0.24 },
+        { name: 'Marcus Rashford', position: 'delantero', role: 'Extremo vertical veloz | Goleador vs Croacia', weight: 0.18 },
+        { name: 'Bukayo Saka', position: 'delantero', role: 'Extremo de gran diagonal interior', weight: 0.10 },
+        { name: 'Phil Foden', position: 'delantero', role: 'Media punta técnico disparo corto', weight: 0.08 },
         { name: 'John Stones', position: 'defensor', role: 'Central hábil rematando de cabeza', weight: 0.02 }
       ];
     } else if (id === 'ger') {
       players = [
-        { name: 'Florian Wirtz', position: 'mediocampista', role: 'Mediapunta de enorme fantasía', weight: 0.28 },
-        { name: 'Jamal Musiala', position: 'mediocampista', role: 'Regateador impredecible de área', weight: 0.26 },
-        { name: 'Kai Havertz', position: 'delantero', role: 'Mediapunta/Falso nueve | Penales', weight: 0.24 },
-        { name: 'Niclas Füllkrug', position: 'delantero', role: 'Tanque rematador clásico', weight: 0.12 },
-        { name: 'Leroy Sané', position: 'delantero', role: 'Extremo explosivo vertical', weight: 0.06 },
-        { name: 'Antonio Rüdiger', position: 'defensor', role: 'Poder cabezazo defensivo y corners', weight: 0.02 }
+        { name: 'Kai Havertz', position: 'delantero', role: 'Falso nueve estelar | Penales (Doblete vs Curazao)', weight: 0.28 },
+        { name: 'Jamal Musiala', position: 'mediocampista', role: 'Regateador impredecible de área | Goleador vs Curazao', weight: 0.22 },
+        { name: 'Felix Nmecha', position: 'mediocampista', role: 'Pivote dinámico de gran pegada | Goleador vs Curazao', weight: 0.18 },
+        { name: 'Nico Schlotterbeck', position: 'defensor', role: 'Central de gran cabeceo letal | Goleador vs Curazao', weight: 0.14 },
+        { name: 'Deniz Undav', position: 'delantero', role: 'Centrodelantero suplente letal | Goleador vs Curazao', weight: 0.10 },
+        { name: 'Nathaniel Brown', position: 'defensor', role: 'Lateral de gran llegada | Goleador vs Curazao', weight: 0.08 }
       ];
     } else if (id === 'por') {
       players = [
@@ -1299,12 +1299,12 @@ export class PredictorEngine {
         { name: 'Bruno Fernandes', position: 'mediocampista', role: 'Tiros libres directos, penales y pases gol', weight: 0.22 },
         { name: 'Rafael Leão', position: 'delantero', role: 'Extremo regateador muy veloz', weight: 0.18 },
         { name: 'Bernardo Silva', position: 'mediocampista', role: 'Extremo técnico con buen gol', weight: 0.12 },
-        { name: 'Diogo Jota', position: 'delantero', role: 'Atacante de área muy oportuno', weight: 0.08 },
+        { name: 'Diogo Jota', position: 'delantero', role: 'Atacante de área muy oportuno', weight: 0.10 },
         { name: 'Rúben Dias', position: 'defensor', role: 'Central de gran cabeceo goleador', weight: 0.02 }
       ];
     } else if (id === 'nor' || id === 'mci') {
       players = [
-        { name: 'Erling Haaland', position: 'delantero', role: 'Goleador letal e implacable | Penales', weight: 0.58 },
+        { name: 'Erling Haaland', position: 'delantero', role: 'Goleador letal e implacable | Goleador vs Irak', weight: 0.60 },
         { name: 'Martin Ødegaard', position: 'mediocampista', role: 'Líder creativo | Balón parado e interiores', weight: 0.20 },
         { name: 'Alexander Sørloth', position: 'delantero', role: 'Centrodelantero fornido complementario', weight: 0.12 },
         { name: 'Antonio Nusa', position: 'delantero', role: 'Extremo hábil de gran regate', weight: 0.06 },
@@ -1316,169 +1316,204 @@ export class PredictorEngine {
         { name: 'Kendry Páez', position: 'mediocampista', role: 'Gran pegada y creador libre', weight: 0.20 },
         { name: 'Moisés Caicedo', position: 'mediocampista', role: 'Llegada ofensiva de gran despliegue', weight: 0.15 },
         { name: 'Kevin Rodríguez', position: 'delantero', role: 'Atacante veloz con pegada', weight: 0.15 },
-        { name: 'Piero Hincapié', position: 'defensor', role: 'Lateral de llegada incisiva', weight: 0.08 },
-        { name: 'Félix Torres', position: 'defensor', role: 'Central cabeceador muy directo', weight: 0.05 }
+        { name: 'Piero Hincapié', position: 'defensor', role: 'Lateral de llegada incisiva', weight: 0.10 },
+        { name: 'Félix Torres', position: 'defensor', role: 'Central cabeceador muy directo', weight: 0.08 }
       ];
     } else if (id === 'usa') {
       players = [
-        { name: 'Christian Pulisic', position: 'delantero', role: 'Extremo estrella de alta llegada', weight: 0.32 },
-        { name: 'Folarin Balogun', position: 'delantero', role: 'Atacante veloz definidor', weight: 0.24 },
-        { name: 'Timothy Weah', position: 'delantero', role: 'Extremo potente', weight: 0.16 },
-        { name: 'Weston McKennie', position: 'mediocampista', role: 'Llegada de segunda línea cabeceador', weight: 0.14 },
-        { name: 'Giovanni Reyna', position: 'mediocampista', role: 'Volante asociativo técnico', weight: 0.08 },
+        { name: 'Folarin Balogun', position: 'delantero', role: 'Ariete estelar potente | Goleador letal (Doblete vs Paraguay)', weight: 0.38 },
+        { name: 'Giovanni Reyna', position: 'mediocampista', role: 'Mediapunta creativo y desequilibrio | Goleador vs Paraguay', weight: 0.22 },
+        { name: 'Christian Pulisic', position: 'delantero', role: 'Extremo estrella de alta llegada', weight: 0.20 },
+        { name: 'Timothy Weah', position: 'delantero', role: 'Extremo potente', weight: 0.10 },
+        { name: 'Weston McKennie', position: 'mediocampista', role: 'Llegada de segunda línea cabeceador', weight: 0.07 },
         { name: 'Miles Robinson', position: 'defensor', role: 'Cabeceador oportuno', weight: 0.03 }
       ];
     } else if (id === 'mex') {
       players = [
-        { name: 'Santiago Giménez', position: 'delantero', role: 'Goleador de área destacado | Penales', weight: 0.30 },
-        { name: 'Henry Martín', position: 'delantero', role: 'Atacante de aguante', weight: 0.22 },
-        { name: 'César Huerta', position: 'delantero', role: 'Extremo escurridizo regateador', weight: 0.16 },
-        { name: 'Luis Chávez', position: 'mediocampista', role: 'Cobrador de libres directos excelso', weight: 0.15 },
-        { name: 'Edson Álvarez', position: 'mediocampista', role: 'Volante táctico cabeceador', weight: 0.10 },
-        { name: 'Johan Vásquez', position: 'defensor', role: 'Cabeceo defensivo/ofensivo', weight: 0.04 }
+        { name: 'Julián Quiñones', position: 'delantero', role: 'Extremo punzante naturalizado | Goleador vs Sudáfrica', weight: 0.26 },
+        { name: 'Raúl Jiménez', position: 'delantero', role: 'Centrodelantero de jerarquía | Goleador vs Sudáfrica', weight: 0.24 },
+        { name: 'Luis Romo', position: 'mediocampista', role: 'Volante interior todoterreno | Goleador vs Corea del Sur', weight: 0.16 },
+        { name: 'Santiago Giménez', position: 'delantero', role: 'Goleador de área destacado | Penales', weight: 0.15 },
+        { name: 'César Huerta', position: 'delantero', role: 'Extremo escurridizo regateador', weight: 0.10 },
+        { name: 'Luis Chávez', position: 'mediocampista', role: 'Cobrador de libres directos excelso', weight: 0.09 }
       ];
     } else if (id === 'can') {
       players = [
-        { name: 'Jonathan David', position: 'delantero', role: 'Centrodelantero ágil y definidor | Penales', weight: 0.35 },
-        { name: 'Cyle Larin', position: 'delantero', role: 'Histórico delantero centro cabeceador', weight: 0.25 },
-        { name: 'Alphonso Davies', position: 'defensor', role: 'Lateral velocísimo y balón parado', weight: 0.20 },
-        { name: 'Stephen Eustáquio', position: 'mediocampista', role: 'Asistente y capitán en jugada quieta', weight: 0.08 },
-        { name: 'Jacob Shaffelburg', position: 'delantero', role: 'Extremo picante', weight: 0.07 },
-        { name: 'Moïse Bombito', position: 'defensor', role: 'Poderío aéreo', weight: 0.03 }
+        { name: 'Jonathan David', position: 'delantero', role: 'Ariete estelar y goleador implacable (Hat-trick vs Qatar)', weight: 0.42 },
+        { name: 'Cyle Larin', position: 'delantero', role: 'Histórico delantero centro cabeceador | Goleador vs Bosnia y Qatar', weight: 0.28 },
+        { name: 'Alphonso Davies', position: 'defensor', role: 'Lateral velocísimo y balón parado', weight: 0.15 },
+        { name: 'Nathan Saliba', position: 'mediocampista', role: 'Mediocampista juvenil de proyección | Goleador vs Qatar', weight: 0.10 },
+        { name: 'Stephen Eustáquio', position: 'mediocampista', role: 'Asistente y capitán en jugada quieta', weight: 0.05 }
       ];
     } else if (id === 'cro') {
       players = [
-        { name: 'Andrej Kramarić', position: 'delantero', role: 'Atacante muy técnico | Penales', weight: 0.35 },
-        { name: 'Luka Modrić', position: 'mediocampista', role: 'Director histórico | Tiros libres y penales', weight: 0.20 },
-        { name: 'Mario Pašalić', position: 'mediocampista', role: 'Llegada sorpresa de segunda línea', weight: 0.15 },
-        { name: 'Andrej Budimir', position: 'delantero', role: 'Delantero centro rematador', weight: 0.12 },
-        { name: 'Ivan Perišić', position: 'mediocampista', role: 'Carrilero experimentado con gol', weight: 0.08 },
-        { name: 'Josko Gvardiol', position: 'defensor', role: 'Defensa con gran proyección ofensiva', weight: 0.04 }
+        { name: 'Martin Baturina', position: 'mediocampista', role: 'Brillante joya creativa | Goleador vs Inglaterra', weight: 0.28 },
+        { name: 'Petar Musa', position: 'delantero', role: 'Atacante potente de área | Goleador vs Inglaterra', weight: 0.24 },
+        { name: 'Andrej Kramarić', position: 'delantero', role: 'Atacante muy técnico | Penales', weight: 0.22 },
+        { name: 'Luka Modrić', position: 'mediocampista', role: 'Director histórico | Tiros libres y penales', weight: 0.15 },
+        { name: 'Mario Pašalić', position: 'mediocampista', role: 'Llegada sorpresa de segunda línea', weight: 0.08 },
+        { name: 'Josko Gvardiol', position: 'defensor', role: 'Defensa con gran proyección ofensiva', weight: 0.03 }
       ];
     } else if (id === 'jpn') {
       players = [
-        { name: 'Ayase Ueda', position: 'delantero', role: 'Ariete principal del seleccionado nipón', weight: 0.30 },
-        { name: 'Kaoru Mitoma', position: 'delantero', role: 'Extremo de increíble habilidad y regates', weight: 0.24 },
-        { name: 'Takumi Minamino', position: 'mediocampista', role: 'Conexión de ataque con gran pegada', weight: 0.20 },
-        { name: 'Takefusa Kubo', position: 'mediocampista', role: 'Media punta movedizo y tiros libres', weight: 0.15 },
-        { name: 'Ritsu Doan', position: 'mediocampista', role: 'Zurdazo potente de media distancia', weight: 0.05 },
+        { name: 'Keito Nakamura', position: 'delantero', role: 'Extremo talentoso de gran gol | Goleador vs Países Bajos', weight: 0.32 },
+        { name: 'Daichi Kamada', position: 'mediocampista', role: 'Volante cerebral de área | Goleador vs Países Bajos', weight: 0.26 },
+        { name: 'Ayase Ueda', position: 'delantero', role: 'Ariete principal del seleccionado nipón', weight: 0.18 },
+        { name: 'Kaoru Mitoma', position: 'delantero', role: 'Extremo de increíble habilidad y regates', weight: 0.14 },
+        { name: 'Takefusa Kubo', position: 'mediocampista', role: 'Media punta movedizo y tiros libres', weight: 0.08 },
         { name: 'Ko Itakura', position: 'defensor', role: 'Central de gran alcance aéreo', weight: 0.02 }
       ];
     } else if (id === 'kor') {
       players = [
-        { name: 'Heung-min Son', position: 'delantero', role: 'Leyenda de ataque, capitán y penales', weight: 0.42 },
-        { name: 'Hee-chan Hwang', position: 'delantero', role: 'Delantero potente y desmarques al espacio', weight: 0.25 },
-        { name: 'Kang-in Lee', position: 'mediocampista', role: 'Pase filtrado y remates con rosca', weight: 0.18 },
-        { name: 'Jae-sung Lee', position: 'mediocampista', role: 'Asociación y llegada', weight: 0.08 },
-        { name: 'Min-jae Kim', position: 'defensor', role: 'Central imponente en tiros de esquina', weight: 0.04 }
+        { name: 'Hwang In-beom', position: 'mediocampista', role: 'Volante mixto con golazo de llegada | Goleador vs Chequia', weight: 0.28 },
+        { name: 'Oh Hyeon-gyu', position: 'delantero', role: 'Atacante potente de definición | Goleador vs Chequia', weight: 0.26 },
+        { name: 'Heung-min Son', position: 'delantero', role: 'Leyenda de ataque, capitán y penales', weight: 0.24 },
+        { name: 'Hee-chan Hwang', position: 'delantero', role: 'Delantero potente y desmarques al espacio', weight: 0.12 },
+        { name: 'Kang-in Lee', position: 'mediocampista', role: 'Pase filtrado y remates con rosca', weight: 0.08 },
+        { name: 'Min-jae Kim', position: 'defensor', role: 'Central imponente en tiros de esquina', weight: 0.02 }
       ];
-    } else if (id === 'rma') {
+    } else if (id === 'sui') {
       players = [
-        { name: 'Kylian Mbappé', position: 'delantero', role: 'Mérida estelar de ataque | Penales', weight: 0.34 },
-        { name: 'Vinicius Junior', position: 'delantero', role: 'Veloz regateador y definidor top', weight: 0.32 },
-        { name: 'Jude Bellingham', position: 'mediocampista', role: 'Llegadas profundas e inteligente de área', weight: 0.16 },
-        { name: 'Rodrygo Goes', position: 'delantero', role: 'Creatividad por la banda derecha', weight: 0.12 },
-        { name: 'Fede Valverde', position: 'mediocampista', role: 'Cañonazo letal lejano', weight: 0.04 },
-        { name: 'Antonio Rüdiger', position: 'defensor', role: 'Cabeceador letal en balones quietos', weight: 0.02 }
+        { name: 'Johan Manzambi', position: 'delantero', role: 'Delantero joven revelación implacable (Doblete vs Bosnia)', weight: 0.35 },
+        { name: 'Breel Embolo', position: 'delantero', role: 'Potente ariete de área (Goleador de penal vs Qatar)', weight: 0.25 },
+        { name: 'Ruben Vargas', position: 'delantero', role: 'Extremo movedizo y encarador | Goleador vs Bosnia', weight: 0.16 },
+        { name: 'Granit Xhaka', position: 'mediocampista', role: 'Capitán y director de orquesta | Goleador vs Bosnia', weight: 0.14 },
+        { name: 'Dan Ndoye', position: 'delantero', role: 'Extremo veloz y vertical', weight: 0.07 },
+        { name: 'Manuel Akanji', position: 'defensor', role: 'Zaguero cabeceador letal', weight: 0.03 }
       ];
-    } else if (id === 'fcb') {
+    } else if (id === 'mar') {
       players = [
-        { name: 'Robert Lewandowski', position: 'delantero', role: 'Pólvora pura e histórico del área | Penales', weight: 0.40 },
-        { name: 'Raphinha', position: 'delantero', role: 'Estrella en desmarques y pegada balón parado', weight: 0.22 },
-        { name: 'Lamine Yamal', position: 'delantero', role: 'Juvenil superdotado técnicamente', weight: 0.20 },
-        { name: 'Dani Olmo', position: 'mediocampista', role: 'Puntería afinada desde el borde del área', weight: 0.12 },
-        { name: 'Pedri', position: 'mediocampista', role: 'Habilidad de entrelíneas', weight: 0.04 },
-        { name: 'Ronald Araújo', position: 'defensor', role: 'Garra defensiva cabeceadora', weight: 0.02 }
+        { name: 'Ismael Saibari', position: 'mediocampista', role: 'Mediapunta talentoso de asombrosa pegada | Goleador vs Brasil y Escocia', weight: 0.40 },
+        { name: 'Ayoub El Kaabi', position: 'delantero', role: 'Goleador definidor letal de área', weight: 0.20 },
+        { name: 'Brahim Díaz', position: 'delantero', role: 'Mediapunta creativo del Real Madrid', weight: 0.18 },
+        { name: 'Hakim Ziyech', position: 'mediocampista', role: 'Balón quieto excepcional y comba', weight: 0.12 },
+        { name: 'Achraf Hakimi', position: 'defensor', role: 'Lateral de proyección total', weight: 0.07 },
+        { name: 'Sofyan Amrabat', position: 'mediocampista', role: 'Pivote defensivo rematador', weight: 0.03 }
       ];
-    } else if (id === 'liv') {
+    } else if (id === 'sco') {
       players = [
-        { name: 'Mohamed Salah', position: 'delantero', role: 'Faraón letal e histórico | Penales', weight: 0.40 },
-        { name: 'Luis Díaz', position: 'delantero', role: 'Atacante veloz de diagonales', weight: 0.22 },
-        { name: 'Darwin Núñez', position: 'delantero', role: 'Centrodelantero movedizo explosivo', weight: 0.18 },
-        { name: 'Cody Gakpo', position: 'delantero', role: 'Extremo zurdo potente', weight: 0.10 },
-        { name: 'Alexis Mac Allister', position: 'mediocampista', role: 'Especialista táctico en remates', weight: 0.06 },
-        { name: 'Virgil van Dijk', position: 'defensor', role: 'Faro ofensivo en córners', weight: 0.04 }
+        { name: 'John McGinn', position: 'mediocampista', role: 'Llegador infatigable de área chico | Goleador vs Haití', weight: 0.36 },
+        { name: 'Scott McTominay', position: 'mediocampista', role: 'Volante con gran presencia y tiro de gol', weight: 0.26 },
+        { name: 'Che Adams', position: 'delantero', role: 'Delantero centro de potencia', weight: 0.18 },
+        { name: 'Lawrence Shankland', position: 'delantero', role: 'Goleador nato en el área', weight: 0.12 },
+        { name: 'Andrew Robertson', position: 'defensor', role: 'Lateral de proyección y centros', weight: 0.05 },
+        { name: 'Billy Gilmour', position: 'mediocampista', role: 'Organizador y pase limpio', weight: 0.03 }
       ];
-    } else if (id === 'bay') {
+    } else if (id === 'aus') {
       players = [
-        { name: 'Harry Kane', position: 'delantero', role: 'Máximo goleador | Penales', weight: 0.45 },
-        { name: 'Jamal Musiala', position: 'mediocampista', role: 'Mago habilidoso creador', weight: 0.20 },
-        { name: 'Serge Gnabry', position: 'delantero', role: 'Extremo potente definidor', weight: 0.15 },
-        { name: 'Michael Olise', position: 'delantero', role: 'Extremo técnico rematador de libres', weight: 0.12 },
-        { name: 'Leroy Sané', position: 'delantero', role: 'Veloz regateador cambiante', weight: 0.05 },
-        { name: 'Dayot Upamecano', position: 'defensor', role: 'Cabeceo en juego aéreo', weight: 0.03 }
+        { name: 'Nestory Irankunda', position: 'delantero', role: 'Velocista desequilibrante del Bayern | Goleador vs Turquía', weight: 0.32 },
+        { name: 'Connor Metcalfe', position: 'mediocampista', role: 'Volante veloz de gran pegada | Goleador vs Turquía', weight: 0.26 },
+        { name: 'Mitchell Duke', position: 'delantero', role: 'Atacante potente cabeceador', weight: 0.18 },
+        { name: 'Craig Goodwin', position: 'mediocampista', role: 'Centros letales y balón quieto', weight: 0.14 },
+        { name: 'Harry Souttar', position: 'defensor', role: 'Gigante zaguero en tiros de esquina', weight: 0.08 },
+        { name: 'Jackson Irvine', position: 'mediocampista', role: 'Pivote con gran llegada', weight: 0.02 }
       ];
-    } else if (id === 'psg') {
+    } else if (id === 'cuw') {
       players = [
-        { name: 'Ousmane Dembélé', position: 'delantero', role: 'Regateador y desborde veloz', weight: 0.25 },
-        { name: 'Bradley Barcola', position: 'delantero', role: 'Delantero juvenil de gran definición', weight: 0.25 },
-        { name: 'Gonçalo Ramos', position: 'delantero', role: 'Centrodelantero matador', weight: 0.22 },
-        { name: 'Randal Kolo Muani', position: 'delantero', role: 'Atacante potente al contragolpe', weight: 0.12 },
-        { name: 'Vitinha', position: 'mediocampista', role: 'Volante creativo pateador de penales', weight: 0.10 },
-        { name: 'Marquinhos', position: 'defensor', role: 'Capitán fuerte cabeceador', weight: 0.06 }
+        { name: 'Livano Comenencia', position: 'mediocampista', role: 'Punta veloz de gran olfato | Goleador vs Alemania', weight: 0.42 },
+        { name: 'Juninho Bacuna', position: 'mediocampista', role: 'Especialista en tiros libres y creación', weight: 0.25 },
+        { name: 'Brandley Kuwas', position: 'delantero', role: 'Extremo veloz y encarador', weight: 0.15 },
+        { name: 'Cuco Martina', position: 'defensor', role: 'Líder defensivo cabeceador', weight: 0.10 },
+        { name: 'Leandro Bacuna', position: 'mediocampista', role: 'Distribución y llegada', weight: 0.08 }
       ];
-    } else if (id === 'int') {
+    } else if (id === 'ned') {
       players = [
-        { name: 'Lautaro Martínez', position: 'delantero', role: 'Toro de área y definidor | Penales', weight: 0.40 },
-        { name: 'Marcus Thuram', position: 'delantero', role: 'Media punta y atacante veloz de apoyo', weight: 0.25 },
-        { name: 'Hakan Çalhanoğlu', position: 'mediocampista', role: 'Especialista histórico en libre directo y penales', weight: 0.18 },
-        { name: 'Federico Dimarco', position: 'defensor', role: 'Lateral ofensivo zurdo especialista rematador', weight: 0.08 },
-        { name: 'Nicolò Barella', position: 'mediocampista', role: 'Dinamita y llegada desde atrás', weight: 0.06 },
-        { name: 'Francesco Acerbi', position: 'defensor', role: 'Central de gran cabeceo', weight: 0.03 }
+        { name: 'Crysencio Summerville', position: 'delantero', role: 'Extremo veloz del West Ham | Goleador vs Japón', weight: 0.32 },
+        { name: 'Virgil van Dijk', position: 'defensor', role: 'Capitán enorme cabeceador | Goleador vs Japón', weight: 0.24 },
+        { name: 'Cody Gakpo', position: 'delantero', role: 'Atacante potente diagonal interior', weight: 0.22 },
+        { name: 'Memphis Depay', position: 'delantero', role: 'Penales, libres directos y gambeta', weight: 0.12 },
+        { name: 'Xavi Simons', position: 'mediocampista', role: 'Creativo genial de gran pegada', weight: 0.08 },
+        { name: 'Jeremie Frimpong', position: 'defensor', role: 'Lateral de velocidad endemoniada', weight: 0.02 }
       ];
-    } else if (id === 'atm') {
+    } else if (id === 'civ') {
       players = [
-        { name: 'Antoine Griezmann', position: 'delantero', role: 'Cerebro, ídolo y principal ejecutor', weight: 0.32 },
-        { name: 'Julián Álvarez', position: 'delantero', role: 'Araña movediza que presiona y define', weight: 0.28 },
-        { name: 'Alexander Sørloth', position: 'delantero', role: 'Estatura y remate oportunista de área', weight: 0.20 },
-        { name: 'Ángel Correa', position: 'delantero', role: 'Revolucionador de partidos con gran empuje', weight: 0.10 },
-        { name: 'Rodrigo De Paul', position: 'mediocampista', role: 'Asistente y disparos de larga distancia', weight: 0.06 },
-        { name: 'José María Giménez', position: 'defensor', role: 'Uruguayo indomable en corners', weight: 0.04 }
+        { name: 'Amad Diallo', position: 'delantero', role: 'Joya gambeteadora del Man United | Goleador vs Ecuador', weight: 0.38 },
+        { name: 'Sébastien Haller', position: 'delantero', role: 'Centrodelantero clásico de definición', weight: 0.26 },
+        { name: 'Oumar Diakité', position: 'delantero', role: 'Atacante movedizo y enérgico', weight: 0.16 },
+        { name: 'Franck Kessié', position: 'mediocampista', role: 'Volante fuerte pateador de penales', weight: 0.10 },
+        { name: 'Simon Adingra', position: 'delantero', role: 'Extremo veloz de ruptura', weight: 0.07 },
+        { name: 'Evan Ndicka', position: 'defensor', role: 'Cabezazo imponente', weight: 0.03 }
       ];
-    } else if (id === 'bvb') {
+    } else if (id === 'swe') {
       players = [
-        { name: 'Serhou Guirassy', position: 'delantero', role: 'Goleador letal guineano | Penales', weight: 0.40 },
-        { name: 'Julian Brandt', position: 'mediocampista', role: 'Táctica, tiros libres directos y pases gol', weight: 0.20 },
-        { name: 'Donyell Malen', position: 'delantero', role: 'Extremo veloz muy definidor', weight: 0.18 },
-        { name: 'Karim Adeyemi', position: 'delantero', role: 'Súper velocidad por bandas', weight: 0.12 },
-        { name: 'Marcel Sabitzer', position: 'mediocampista', role: 'Volante con fuerte pegada lejana', weight: 0.06 },
-        { name: 'Nico Schlotterbeck', position: 'defensor', role: 'Cabeceador letal en corners', weight: 0.04 }
+        { name: 'Yasin Ayari', position: 'mediocampista', role: 'Mediocampista con llegada sensacional (Doblete vs Túnez)', weight: 0.35 },
+        { name: 'Alexander Isak', position: 'delantero', role: 'Definidor brillante de Premier League | Goleador vs Túnez', weight: 0.24 },
+        { name: 'Viktor Gyökeres', position: 'delantero', role: 'Máquina imparable de gol en Europa | Goleador vs Túnez', weight: 0.22 },
+        { name: 'Mattias Svanberg', position: 'mediocampista', role: 'Volante mixto de potente remate | Goleador vs Túnez', weight: 0.10 },
+        { name: 'Dejan Kulusevski', position: 'delantero', role: 'Volante creativo extremo', weight: 0.07 },
+        { name: 'Emil Forsberg', position: 'mediocampista', role: 'Experimentado jugador de enlace', weight: 0.02 }
       ];
-    } else if (id === 'fla') {
+    } else if (id === 'tun') {
       players = [
-        { name: 'Pedro Guilherme', position: 'delantero', role: 'Pichichi implacable | Penales', weight: 0.45 },
-        { name: 'Gabriel Barbosa (Gabigol)', position: 'delantero', role: 'Goleador histórico de finales | Penales', weight: 0.22 },
-        { name: 'Giorgian De Arrascaeta', position: 'mediocampista', role: 'Mago uruguayo balón quieto', weight: 0.18 },
-        { name: 'Gerson Santos', position: 'mediocampista', role: 'Volante mixto con gol', weight: 0.08 },
-        { name: 'Léo Pereira', position: 'defensor', role: 'Fuerza aérea defensiva-ofensiva', weight: 0.04 },
-        { name: 'Léo Ortiz', position: 'defensor', role: 'Cabezazo notable', weight: 0.03 }
+        { name: 'Omar Rekik', position: 'defensor', role: 'Central de gran cabeceo en corners | Goleador vs Suecia', weight: 0.32 },
+        { name: 'Youssef Msakni', position: 'delantero', role: 'Leyenda de ataque afinada', weight: 0.24 },
+        { name: 'Elias Achouri', position: 'delantero', role: 'Extremo movedizo desequilibrante', weight: 0.20 },
+        { name: 'Aïssa Laïdouni', position: 'mediocampista', role: 'Volante fuerte recuperador y pateador', weight: 0.14 },
+        { name: 'Ellyes Skhiri', position: 'mediocampista', role: 'Pivote de gran pegada lejana', weight: 0.10 }
       ];
-    } else if (id === 'pal') {
+    } else if (id === 'irn') {
       players = [
-        { name: 'Estêvão Willian', position: 'delantero', role: 'Joya juvenil regateadora sensacional', weight: 0.32 },
-        { name: 'Flaco López', position: 'delantero', role: 'Centrodelantero cabeceador letal', weight: 0.28 },
-        { name: 'Raphael Veiga', position: 'mediocampista', role: 'Especialista en penales y remates con zurda', weight: 0.22 },
-        { name: 'Rony da Silva', position: 'delantero', role: 'Ariete picante de chilenas', weight: 0.10 },
-        { name: 'Gustavo Gómez', position: 'defensor', role: 'Central goleador por excelencia', weight: 0.05 },
-        { name: 'Murilo Cerqueira', position: 'defensor', role: 'Corners directos', weight: 0.03 }
+        { name: 'Ramin Rezaeian', position: 'mediocampista', role: 'Lateral de enorme tiro libre y llegada | Goleador vs N. Zelanda', weight: 0.32 },
+        { name: 'Mohammad Mohebbi', position: 'delantero', role: 'Atacante de gran envergadura | Goleador vs N. Zelanda', weight: 0.26 },
+        { name: 'Mehdi Taremi', position: 'delantero', role: 'Goleador estelar del Inter de Milán', weight: 0.22 },
+        { name: 'Sardar Azmoun', position: 'delantero', role: 'Definidor neto muy hábil de cabeza', weight: 0.14 },
+        { name: 'Alireza Jahanbakhsh', position: 'mediocampista', role: 'Extremo experimentado de gran pegada', weight: 0.06 }
       ];
-    } else if (id === 'riv') {
+    } else if (id === 'nzl') {
       players = [
-        { name: 'Miguel Borja', position: 'delantero', role: 'Colibrí letal goleador de área | Penales', weight: 0.45 },
-        { name: 'Facundo Colidio', position: 'delantero', role: 'Atacante movedizo y desmarques', weight: 0.20 },
-        { name: 'Claudio Echeverri', position: 'mediocampista', role: 'Diablito juvenil con gran habilidad', weight: 0.14 },
-        { name: 'Manuel Lanzini', position: 'mediocampista', role: 'Tiros libres y enlace creativo con arco', weight: 0.10 },
-        { name: 'Germán Pezzella', position: 'defensor', role: 'Campeón mundial cabeceador letal en áreas', weight: 0.06 },
-        { name: 'Paulo Díaz', position: 'defensor', role: 'Garra chilena y cabezazos', weight: 0.05 }
+        { name: 'Elijah Just', position: 'delantero', role: 'Extremo veloz y astuto definidor (Doblete vs Irán)', weight: 0.42 },
+        { name: 'Chris Wood', position: 'delantero', role: 'Goleador histórico y capitán potente', weight: 0.28 },
+        { name: 'Ben Waine', position: 'delantero', role: 'Joven atacante movedizo', weight: 0.15 },
+        { name: 'Michael Boxall', position: 'defensor', role: 'Cabezazo notable en tiros de esquina', weight: 0.08 },
+        { name: 'Kosta Barbarouses', position: 'delantero', role: 'Extremo experimentado', weight: 0.07 }
       ];
-    } else if (id === 'boc') {
+    } else if (id === 'sen') {
       players = [
-        { name: 'Edinson Cavani', position: 'delantero', role: 'Matador uruguayo de trayectoria | Penales', weight: 0.42 },
-        { name: 'Miguel Merentiel', position: 'delantero', role: 'Bestia ofensiva movediza de gran empuje', weight: 0.26 },
-        { name: 'Exequiel Zeballos', position: 'delantero', role: 'Changuito veloz, remates libres', weight: 0.14 },
-        { name: 'Kevin Zenón', position: 'mediocampista', role: 'Zurda mágica con pases y disparos gol', weight: 0.10 },
-        { name: 'Cristian Medina', position: 'mediocampista', role: 'Volante con gran llegada al área', weight: 0.05 },
-        { name: 'Marcos Rojo', position: 'defensor', role: 'Zaguero de gran presencia física cabeceadora', weight: 0.03 }
+        { name: 'Ibrahim Mbaye', position: 'delantero', role: 'Atacante escurridizo de grandes diagonales | Goleador vs Francia', weight: 0.32 },
+        { name: 'Sadio Mané', position: 'delantero', role: 'Ícono histórico de ataque desequilibrante', weight: 0.26 },
+        { name: 'Nicolas Jackson', position: 'delantero', role: 'Nueve fuerte de la Premier League', weight: 0.22 },
+        { name: 'Ismaïla Sarr', position: 'delantero', role: 'Extremo velocísimo por bandas', weight: 0.10 },
+        { name: 'Pape Matar Sarr', position: 'mediocampista', role: 'Llegador sorpresivo de gran disparo', weight: 0.08 / 0.10 } // We'll just write 0.10
+      ];
+    } else if (id === 'cze') {
+      players = [
+        { name: 'Michal Sadílek', position: 'mediocampista', role: 'Volante ofensivo de notable remate | Goleador vs Sudáfrica', weight: 0.30 },
+        { name: 'Ladislav Krejčí', position: 'defensor', role: 'Zaguero imponente muy cabeceador | Goleador vs Corea', weight: 0.26 },
+        { name: 'Patrik Schick', position: 'delantero', role: 'Nueve referente de área letal', weight: 0.24 },
+        { name: 'Tomáš Souček', position: 'mediocampista', role: 'Capitán todoterreno especialista aéreo', weight: 0.12 },
+        { name: 'Adam Hložek', position: 'delantero', role: 'Mediapunta movedizo con buen tiro', weight: 0.08 }
+      ];
+    } else if (id === 'aut') {
+      players = [
+        { name: 'Romano Schmid', position: 'mediocampista', role: 'Volante asombroso con desborde y astucia | Goleador vs Jordania', weight: 0.32 },
+        { name: 'Marko Arnautović', position: 'delantero', role: 'Histórico goleador de clase mundial | Especialista penales (Goleador vs Jordania)', weight: 0.28 },
+        { name: 'Christoph Baumgartner', position: 'mediocampista', role: 'Llegada de segunda línea', weight: 0.20 },
+        { name: 'Marcel Sabitzer', position: 'mediocampista', role: 'Líder pateador de tiros libres', weight: 0.12 },
+        { name: 'Michael Gregoritsch', position: 'delantero', role: 'Centrodelantero de gran físico', weight: 0.08 }
+      ];
+    } else if (id === 'jor') {
+      players = [
+        { name: 'Ali Olwan', position: 'delantero', role: 'Atacante rápido desequilibrante | Goleador vs Austria', weight: 0.35 },
+        { name: 'Musa Al-Taamari', position: 'delantero', role: 'La joya de Jordania de la Ligue 1', weight: 0.30 },
+        { name: 'Yazan Al-Naimat', position: 'delantero', role: 'Rematador oportunista', weight: 0.22 },
+        { name: 'Ehsaan Haddad', position: 'defensor', role: 'Capitán y pateador', weight: 0.08 },
+        { name: 'Noor Al-Rawabdeh', position: 'mediocampista', role: 'Llegada sorpresiva mixta', weight: 0.05 }
+      ];
+    } else if (id === 'rsa') {
+      players = [
+        { name: 'Teboho Mokoena', position: 'mediocampista', role: 'Especialista en tiro libre y penales (Goleador vs Chequia)', weight: 0.34 },
+        { name: 'Percy Tau', position: 'delantero', role: 'Extremo ágil de gran enganche', weight: 0.24 },
+        { name: 'Themba Zwane', position: 'mediocampista', role: 'Cerebro con gran llegada al área', weight: 0.22 },
+        { name: 'Khuliso Mudau', position: 'defensor', role: 'Lateral velocísimo letal de contragolpe', weight: 0.12 },
+        { name: 'Evidence Makgopa', position: 'delantero', role: 'Centrodelantero rematador', weight: 0.08 }
+      ];
+    } else if (id === 'bih') {
+      players = [
+        { name: 'E. Mahmić', position: 'defensor', role: 'Poderío aéreo sobresaliente | Goleador vs Suiza', weight: 0.30 },
+        { name: 'Edin Džeko', position: 'delantero', role: 'Histórica flecha goleadora y capitán', weight: 0.35 },
+        { name: 'Ermedin Demirović', position: 'delantero', role: 'Goleador incisivo de la Bundesliga', weight: 0.20 },
+        { name: 'Miralem Pjanić', position: 'mediocampista', role: 'Maestro de la pelota quieta', weight: 0.12 },
+        { name: 'Amar Dedić', position: 'defensor', role: 'Lateral de gran llegada ofensiva', weight: 0.03 }
       ];
     } else {
       const cont = team.continent;
@@ -1530,17 +1565,78 @@ export class PredictorEngine {
       }
     }
 
+    const REAL_WORLD_CUP_GOALS: Record<string, number> = {
+      'Lionel Messi': 3,
+      'Jonathan David': 3,
+      'Folarin Balogun': 2,
+      'Yasin Ayari': 2,
+      'Kylian Mbappé': 2,
+      'Harry Kane': 2,
+      'Johan Manzambi': 2,
+      'Kai Havertz': 2,
+      'Ismael Saibari': 2,
+      'Cyle Larin': 2,
+      'Elijah Just': 2,
+      'Julián Quiñones': 1,
+      'Raúl Jiménez': 1,
+      'Hwang In-beom': 1,
+      'Oh Hyeon-gyu': 1,
+      'Ladislav Krejčí': 1,
+      'Giovanni Reyna': 1,
+      'Breel Embolo': 1,
+      'Vinícius Jr': 1,
+      'John McGinn': 1,
+      'Nestory Irankunda': 1,
+      'Connor Metcalfe': 1,
+      'Felix Nmecha': 1,
+      'Nico Schlotterbeck': 1,
+      'Jamal Musiala': 1,
+      'Nathaniel Brown': 1,
+      'Deniz Undav': 1,
+      'Livano Comenencia': 1,
+      'Virgil van Dijk': 1,
+      'Crysencio Summerville': 1,
+      'Keito Nakamura': 1,
+      'Daichi Kamada': 1,
+      'Amad Diallo': 1,
+      'Alexander Isak': 1,
+      'Viktor Gyökeres': 1,
+      'Mattias Svanberg': 1,
+      'Omar Rekik': 1,
+      'Ramin Rezaeian': 1,
+      'Mohammad Mohebbi': 1,
+      'Bradley Barcola': 1,
+      'Ibrahim Mbaye': 1,
+      'Erling Haaland': 1,
+      'Romano Schmid': 1,
+      'Marko Arnautović': 1,
+      'Ali Olwan': 1,
+      'Jude Bellingham': 1,
+      'Marcus Rashford': 1,
+      'Martin Baturina': 1,
+      'Petar Musa': 1,
+      'Michal Sadílek': 1,
+      'Teboho Mokoena': 1,
+      'Ruben Vargas': 1,
+      'Granit Xhaka': 1,
+      'E. Mahmić': 1,
+      'Nathan Saliba': 1,
+      'Luis Romo': 1,
+    };
+
     return players.map(p => {
       const pLambda = lambda * p.weight;
       const anytimeScoringProbability = parseFloat((1 - Math.exp(-pLambda)).toFixed(4));
       const multipleGoalsProbability = parseFloat((1 - Math.exp(-pLambda) - pLambda * Math.exp(-pLambda)).toFixed(4));
       const firstScorerProbability = parseFloat(((pLambda + 0.01) / (lambda + opponentLambda + 0.1) * (1 - Math.exp(-(lambda + opponentLambda)))).toFixed(4));
       
-      let goalsScoredInTournament = 0;
-      if (gf > 0) {
-        goalsScoredInTournament = Math.max(0, Math.round(gf * p.weight + (p.weight > 0.20 ? 1 : 0)));
-      } else {
-        goalsScoredInTournament = p.weight > 0.35 ? 3 : p.weight > 0.20 ? 1 : 0;
+      let goalsScoredInTournament = REAL_WORLD_CUP_GOALS[p.name] || 0;
+      if (goalsScoredInTournament === 0) {
+        if (gf > 0) {
+          goalsScoredInTournament = Math.max(0, Math.round(gf * p.weight));
+        } else {
+          goalsScoredInTournament = p.weight > 0.35 ? 2 : p.weight > 0.20 ? 1 : 0;
+        }
       }
       
       return {
