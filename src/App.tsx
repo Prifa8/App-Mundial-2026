@@ -30,6 +30,8 @@ export default function App() {
   const [realResults, setRealResults] = useState<RealMatch[]>(WC_2026_REAL_RESULTS);
   const [teams, setTeams] = useState<Team[]>(TEAMS);
   const [showRealResults, setShowRealResults] = useState<boolean>(false);
+  const [resultsSearchTerm, setResultsSearchTerm] = useState<string>('');
+  const [resultsGroupFilter, setResultsGroupFilter] = useState<string>('all');
 
   // Selected Team States
   const [teamAId, setTeamAId] = useState('arg'); // Argentina
@@ -303,61 +305,189 @@ export default function App() {
           </div>
 
           {/* Real games audit list */}
-          {showRealResults && (
-            <div className="border-t border-white/5 pt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 animate-fade-in">
-              {realResults.map((match, i) => {
-                const team1 = teams.find(t => t.id === match.team1Id) || TEAMS.find(t => t.id === match.team1Id)!;
-                const team2 = teams.find(t => t.id === match.team2Id) || TEAMS.find(t => t.id === match.team2Id)!;
-                return (
-                  <div key={i} className="bg-slate-950 p-3.5 rounded-xl border border-white/5 flex flex-col justify-between space-y-3">
-                    <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 uppercase">
-                      <span>{match.group}</span>
-                      <span>{match.date}</span>
-                    </div>
-                    
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between font-sans">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="text-xl shrink-0">{getFlagEmoji(team1)}</span>
-                          <span className="text-xs font-bold text-white truncate">{team1.name}</span>
-                        </div>
-                        <span className="text-sm font-black text-slate-200 font-mono pl-2">{match.score1}</span>
-                      </div>
-                      <div className="flex items-center justify-between font-sans">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="text-xl shrink-0">{getFlagEmoji(team2)}</span>
-                          <span className="text-xs font-bold text-white truncate">{team2.name}</span>
-                        </div>
-                        <span className="text-sm font-black text-slate-200 font-mono pl-2">{match.score2}</span>
-                      </div>
-                    </div>
+          {showRealResults && (() => {
+            // Filter the results
+            const filteredResults = realResults.filter(match => {
+              const team1 = teams.find(t => t.id === match.team1Id) || TEAMS.find(t => t.id === match.team1Id);
+              const team2 = teams.find(t => t.id === match.team2Id) || TEAMS.find(t => t.id === match.team2Id);
+              if (!team1 || !team2) return false;
 
-                    {/* Detailed game match stats info */}
-                    {match.xg1 !== undefined && (
-                      <div className="border-t border-white/5 pt-2 space-y-1 text-[10px] font-mono text-slate-400">
-                        <div className="flex justify-between">
-                          <span>xG:</span>
-                          <span className="text-emerald-400 font-bold">{match.xg1.toFixed(2)} - {match.xg2?.toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Posesión:</span>
-                          <span>{match.possession1}% - {match.possession2}%</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Tiros (arco):</span>
-                          <span>{match.shots1}({match.shotsOnTarget1}) - {match.shots2}({match.shotsOnTarget2})</span>
-                        </div>
-                        <div className="flex justify-between text-[9px] text-slate-500">
-                          <span>Corners: {match.corners1} - {match.corners2}</span>
-                          <span>Elo calibrado: {team1.elo} vs {team2.elo}</span>
-                        </div>
-                      </div>
+              const matchesSearch = resultsSearchTerm === '' ||
+                team1.name.toLowerCase().includes(resultsSearchTerm.toLowerCase()) ||
+                team2.name.toLowerCase().includes(resultsSearchTerm.toLowerCase()) ||
+                match.group.toLowerCase().includes(resultsSearchTerm.toLowerCase());
+
+              const matchesGroup = resultsGroupFilter === 'all' || 
+                match.group.toLowerCase().replace('grupo ', '').trim() === resultsGroupFilter.toLowerCase() ||
+                match.group.toLowerCase().trim() === resultsGroupFilter.toLowerCase();
+
+              return matchesSearch && matchesGroup;
+            });
+
+            // Statistics of all matches
+            const totalGoals = realResults.reduce((acc, m) => acc + m.score1 + m.score2, 0);
+            const avgGoals = realResults.length > 0 ? (totalGoals / realResults.length).toFixed(2) : '0';
+            const localWins = realResults.filter(m => m.score1 > m.score2).length;
+            const awayWins = realResults.filter(m => m.score2 > m.score1).length;
+            const draws = realResults.filter(m => m.score1 === m.score2).length;
+
+            return (
+              <div className="border-t border-white/5 pt-5 space-y-5 animate-fade-in">
+                {/* Statistics Summary Widget */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="bg-slate-900/60 border border-white/5 p-3 rounded-xl flex flex-col justify-center">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase">Partidos Jugados</span>
+                    <span className="text-xl font-sans font-black text-emerald-400 mt-1">{realResults.length}</span>
+                  </div>
+                  <div className="bg-slate-900/60 border border-white/5 p-3 rounded-xl flex flex-col justify-center">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase">Total de Goles</span>
+                    <span className="text-xl font-sans font-black text-white mt-1">{totalGoals} <span className="text-xs text-slate-400 font-normal">({avgGoals} / partido)</span></span>
+                  </div>
+                  <div className="bg-slate-900/60 border border-white/5 p-3 rounded-xl flex flex-col justify-center">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase">Distribución de Resultados</span>
+                    <span className="text-xs font-mono text-slate-300 mt-1">
+                      L: <span className="text-emerald-400 font-bold">{localWins}</span> | V: <span className="text-emerald-400 font-bold">{awayWins}</span> | E: <span className="text-amber-400 font-bold">{draws}</span>
+                    </span>
+                  </div>
+                  <div className="bg-slate-900/60 border border-white/5 p-3 rounded-xl flex flex-col justify-center">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase">Fases Completadas</span>
+                    <span className="text-xs font-mono text-white mt-1">Grupo A-L (Ronda 1 y 2)</span>
+                  </div>
+                </div>
+
+                {/* Filter and Search Bar */}
+                <div className="flex flex-col md:flex-row gap-3 items-stretch justify-between bg-slate-950/40 p-3 border border-white/5 rounded-xl">
+                  {/* Search */}
+                  <div className="relative flex-1">
+                    <input
+                      type="text"
+                      placeholder="🔍 Buscar país o grupo (ej. 'Argentina', 'Grupo B')..."
+                      value={resultsSearchTerm}
+                      onChange={(e) => setResultsSearchTerm(e.target.value)}
+                      className="w-full text-xs bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-slate-200 placeholder-slate-500 focus:outline-hidden focus:border-emerald-500/50"
+                    />
+                    {resultsSearchTerm && (
+                      <button 
+                        onClick={() => setResultsSearchTerm('')}
+                        className="absolute right-2.5 top-2.5 text-slate-400 hover:text-white text-[10px] uppercase font-mono"
+                      >
+                        Limpiar
+                      </button>
                     )}
                   </div>
-                );
-              })}
-            </div>
-          )}
+
+                  {/* Group Filter Selector */}
+                  <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1 md:pb-0">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase shrink-0">Filtrar:</span>
+                    <select
+                      value={resultsGroupFilter}
+                      onChange={(e) => setResultsGroupFilter(e.target.value)}
+                      className="text-xs bg-slate-900 border border-white/10 rounded-lg px-2.5 py-1.5 text-slate-200 cursor-pointer focus:outline-hidden focus:border-emerald-500/50"
+                    >
+                      <option value="all">Todos los grupos</option>
+                      <option value="A">Grupo A</option>
+                      <option value="B">Grupo B</option>
+                      <option value="C">Grupo C</option>
+                      <option value="D">Grupo D</option>
+                      <option value="E">Grupo E</option>
+                      <option value="F">Grupo F</option>
+                      <option value="G">Grupo G</option>
+                      <option value="H">Grupo H</option>
+                      <option value="I">Grupo I</option>
+                      <option value="J">Grupo J</option>
+                      <option value="K">Grupo K</option>
+                      <option value="L">Grupo L</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Results Grid */}
+                {filteredResults.length === 0 ? (
+                  <div className="text-center py-8 text-slate-500 text-xs font-mono bg-slate-950/20 rounded-xl border border-dashed border-white/5">
+                    No se encontraron partidos para la búsqueda "{resultsSearchTerm}" o filtro seleccionado.
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                    {filteredResults.map((match, i) => {
+                      const team1 = teams.find(t => t.id === match.team1Id) || TEAMS.find(t => t.id === match.team1Id)!;
+                      const team2 = teams.find(t => t.id === match.team2Id) || TEAMS.find(t => t.id === match.team2Id)!;
+                      
+                      const t1Wins = match.score1 > match.score2;
+                      const t2Wins = match.score2 > match.score1;
+                      
+                      // Identify pending xG matches (played on June 24th, 2026)
+                      const isPendingXg = match.date.includes("24 de junio");
+
+                      return (
+                        <div key={i} className="bg-[#0f0f12] hover:bg-[#141419] p-4 rounded-xl border border-white/5 hover:border-emerald-500/20 transition-all flex flex-col justify-between space-y-3 shadow-md">
+                          <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 uppercase">
+                            <span className="bg-white/5 px-1.5 py-0.5 rounded border border-white/5">{match.group}</span>
+                            <span>{match.date}</span>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between font-sans">
+                              <div className="flex items-center gap-1.5 min-w-0">
+                                <span className="text-xl shrink-0">{getFlagEmoji(team1)}</span>
+                                <span className={`text-xs truncate ${t1Wins ? 'text-emerald-400 font-extrabold' : 'text-slate-300 font-medium'}`}>{team1.name}</span>
+                                {t1Wins && <span className="text-[9px] text-emerald-400 font-mono font-bold bg-emerald-500/10 px-1 rounded shrink-0">W</span>}
+                              </div>
+                              <span className={`text-sm font-mono pl-2 ${t1Wins ? 'text-emerald-400 font-black' : 'text-slate-300 font-bold'}`}>{match.score1}</span>
+                            </div>
+                            <div className="flex items-center justify-between font-sans">
+                              <div className="flex items-center gap-1.5 min-w-0">
+                                <span className="text-xl shrink-0">{getFlagEmoji(team2)}</span>
+                                <span className={`text-xs truncate ${t2Wins ? 'text-emerald-400 font-extrabold' : 'text-slate-300 font-medium'}`}>{team2.name}</span>
+                                {t2Wins && <span className="text-[9px] text-emerald-400 font-mono font-bold bg-emerald-500/10 px-1 rounded shrink-0">W</span>}
+                              </div>
+                              <span className={`text-sm font-mono pl-2 ${t2Wins ? 'text-emerald-400 font-black' : 'text-slate-300 font-bold'}`}>{match.score2}</span>
+                            </div>
+                          </div>
+
+                          {/* Detailed game match stats info */}
+                          <div className="border-t border-white/5 pt-2.5 space-y-1 text-[10px] font-mono text-slate-400">
+                            {isPendingXg ? (
+                              <div className="flex items-center justify-between py-0.5">
+                                <span className="text-[9px] text-amber-500 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded uppercase font-bold w-full text-center">
+                                  ⚠️ xG pendiente de consolidación
+                                </span>
+                              </div>
+                            ) : (
+                              match.xg1 !== undefined && (
+                                <div className="flex justify-between">
+                                  <span>xG total:</span>
+                                  <span className="text-emerald-400 font-bold">{match.xg1.toFixed(2)} - {match.xg2?.toFixed(2)}</span>
+                                </div>
+                              )
+                            )}
+                            
+                            {match.possession1 !== undefined && (
+                              <div className="flex justify-between">
+                                <span>Posesión:</span>
+                                <span>{match.possession1}% - {match.possession2}%</span>
+                              </div>
+                            )}
+                            
+                            {match.shots1 !== undefined && (
+                              <div className="flex justify-between">
+                                <span>Tiros (arco):</span>
+                                <span>{match.shots1}({match.shotsOnTarget1}) - {match.shots2}({match.shotsOnTarget2})</span>
+                              </div>
+                            )}
+                            
+                            <div className="flex justify-between text-[9px] text-slate-500 pt-1">
+                              <span>Corners: {match.corners1 || 0} - {match.corners2 || 0}</span>
+                              <span>Ratings: {team1.elo} vs {team2.elo}</span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
         </div>
 
         {/* VIEW CONDITIONAL RENDERS */}
